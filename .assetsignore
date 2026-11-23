@@ -1,0 +1,7 @@
+# Keep project source and deployment metadata out of the public asset bundle
+/src/
+/.wrangler/
+/.git/
+/node_modules/
+wrangler.jsonc
+package.json
