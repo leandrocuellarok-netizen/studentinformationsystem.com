@@ -39,7 +39,7 @@ export default {
       if (!isAllowedOrigin(origin)) return json({ error: "Origen no permitido." }, 403, origin);
       if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: corsHeaders(origin) });
       if (request.method !== "POST") return json({ error: "Método no permitido." }, 405, origin);
-      if (!env.GEMINI_API_KEY) return json({ error: "La IA todavía no está configurada. Falta el secreto GEMINI_API_KEY." }, 503, origin);
+      if (!env.GEMINI_API_KEY) return json({ error: "CONFIG_ERROR: el Worker no recibió GEMINI_API_KEY en el entorno Production." }, 503, origin);
       let body;
       try { body = await request.json(); } catch { return json({ error: "Solicitud inválida." }, 400, origin); }
       if (!Array.isArray(body.messages) || body.messages.length === 0 || body.messages.length > 12) {
@@ -66,7 +66,7 @@ export default {
         });
         const data = await response.json();
         if (!response.ok) {
-          return json({ error: "El servicio de IA no pudo responder. Revisá el secreto y el acceso al modelo." }, 502, origin);
+          return json({ error: `GEMINI_ERROR_${response.status}: ${data.error?.message || "Falló la llamada a Gemini."}` }, 502, origin);
         }
         const answer = data.candidates?.[0]?.content?.parts?.map(part => part.text || "").join("").trim();
         if (!answer) return json({ error: "La IA no devolvió texto. Probá de nuevo." }, 502, origin);
