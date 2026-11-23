@@ -40,6 +40,12 @@ function offlineReply(message, previousReplies = [], history = []) {
   const recent = previousReplies.map(value => value.trim().toLowerCase());
   const choose = (options) => options.find(reply => !recent.includes(reply.toLowerCase())) || options[0];
 
+  // Answer direct questions about punctum before the broad Barthes fallback.
+  if (/\\b(punctum|punctun|punct[uú]m)\\b/.test(text) ||
+      (/^(que es|qué es|q es|explicame|explícame|no entendi|no entendí|no entiendo)\\b/.test(text) &&
+       history.slice(-6).some(item => item.role === "user" && /punctum|punctun/i.test(item.content)))) {
+    return "El *punctum* es ese detalle de una fotografía que te toca de manera íntima e inesperada: te pincha, te conmueve o te deja pensando. No tiene por qué ser lo más importante ni lo más evidente de la imagen; puede pasar inadvertido para los demás y, sin embargo, para vos cambiar toda la foto.\n\nEjemplo: en una foto familiar quizá todos miran la sonrisa y la ropa, pero a vos te golpea ver una silla vacía o una mano conocida. Ese detalle puede ser tu punctum.\n\nEl *studium*, en cambio, es lo que comprendés de la foto desde tus conocimientos e intereses culturales. En pocas palabras: el studium se lee; el punctum te atraviesa. No es una propiedad fija de la foto: depende del encuentro entre esa imagen y quien la mira.";
+  }
   if (/\b(roland barthes|barthes)\b/.test(text)) {
     if (/escribiste|lo escribiste|fuiste vos|vos escribiste/.test(text)) {
       return "No, no lo escribí yo: te estaba contando quién fue Barthes. Si querés, puedo explicarte una idea suya con un ejemplo cotidiano, como una publicidad o una foto de Instagram.";
@@ -140,7 +146,7 @@ export default {
           method: "POST",
           headers: { "Content-Type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY },
           body: requestBody,
-          signal: AbortSignal.timeout(1800)
+          signal: AbortSignal.timeout(8000)
         });
 
         // Primary model first; automatically fall back to a lighter model on temporary overload.
