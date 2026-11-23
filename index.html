@@ -16,8 +16,8 @@ body{margin:0;background:var(--paper);color:var(--black);font-family:Arial,Helve
 body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:10;opacity:.13;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E")}
 a{color:inherit}
 .wrap{width:min(1100px,calc(100% - 44px));margin:auto}
-.topline{height:92px;display:flex;align-items:center;justify-content:space-between;font-family:'Archivo Black',sans-serif;font-size:clamp(15px,2.2vw,23px);letter-spacing:.06em;text-transform:uppercase}
-.topline span:last-child{font-size:clamp(12px,1.8vw,18px)}
+.topline{height:112px;display:flex;align-items:center;justify-content:space-between;font-family:'Archivo Black',sans-serif;font-size:clamp(15px,2.2vw,23px);letter-spacing:.06em;text-transform:uppercase}
+.topline span:last-child{font-size:clamp(12px,1.8vw,18px)}\n.brand-logo{display:inline-flex;flex-direction:column;align-items:flex-start;gap:0;text-decoration:none;font-family:"Archivo Black",sans-serif;font-size:34px;line-height:.72;letter-spacing:-.09em;transform:rotate(-3deg);filter:drop-shadow(3px 3px 0 var(--pink))}.brand-logo .brand-top{color:#090909;-webkit-text-stroke:1px #090909;text-shadow:1px 1px 0 #fff, -1px -1px 0 #fff}.brand-logo .brand-bottom{background:var(--pink);color:#090909;padding:7px 10px 8px;margin-top:5px;transform:rotate(2deg);letter-spacing:-.06em;border:2px solid #090909;box-shadow:2px 2px 0 #fff}
 .kicker{display:flex;justify-content:space-between;gap:10px;margin:42px 0 8px;font-size:clamp(12px,1.8vw,19px);text-transform:uppercase}
 .hero{position:relative;min-height:760px;background:var(--black);color:var(--white);overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid #111}
 .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 48%,#393939 0,#161616 38%,#050505 76%);opacity:.9}
@@ -90,7 +90,7 @@ footer h2 span{color:var(--pink)}
 </head>
 <body>
 <div class="wrap">
- <div class="topline"><span>SYSCOM</span><span>STUDENT INFORMATION SYSTEM</span></div>
+ <div class="topline"><a class="brand-logo" href="/" aria-label="SYSCOM"><span class="brand-top">SYS</span><span class="brand-bottom">COM</span></a><span>STUDENT INFORMATION SYSTEM</span></div>
  <div class="kicker"><span>She’s</span><span>Out</span><span>To</span><span>Get</span><span>You</span></div>
  <section class="hero" aria-label="SYSCOM — Student Information System">
   <div class="hero-art"><div class="hero-mark">SYS<span>COM</span></div></div>
