@@ -24,6 +24,24 @@ function corsHeaders(origin) {
   };
 }
 
+function offlineReply(message) {
+  const text = message.toLowerCase();
+
+  if (/\\b(hola|buenas|buenos días|buenas tardes|buenas noches|hey|holi)\\b/.test(text)) {
+    return "Holaaa. Estoy acá, aunque hoy mi conexión con la IA está medio rebelde. Podemos conversar igual: ¿qué tema tenés dando vueltas?";
+  }
+  if (/libertad|libre|libertades/.test(text)) {
+    return "Para mí, pensar la libertad exige una distinción: no es hacer cualquier cosa, sino poder elegir con criterio y sin dominación arbitraria. Pero hay una pregunta incómoda: ¿somos libres si nuestras opciones están condicionadas por la economía, la educación o los algoritmos? La IA está temporalmente saturada; esta respuesta es automática. ¿Por dónde te gustaría discutirlo?";
+  }
+  if (/filosof|pensamiento|idea|verdad|ética|etica|justicia/.test(text)) {
+    return "Es una buena pregunta para pensar sin apurarnos. Una primera pista: conviene separar lo que creemos, las razones que tenemos para creerlo y las consecuencias de actuar en función de eso. Mi conexión con la IA está temporalmente saturada, así que esta es una respuesta automática. ¿Qué parte te interesa explorar?";
+  }
+  if (/universidad|estudi|profesor|docente|educación|educacion/.test(text)) {
+    return "La educación no debería limitarse a transmitir información: también tendría que enseñarnos a preguntar, contrastar y pensar por cuenta propia. Hoy estoy en modo automático porque la IA está saturada. ¿Qué aspecto de la educación te interesa?";
+  }
+  return "Te leí. En este momento la IA está con mucha demanda y no puedo elaborar una respuesta personalizada. Pero no hace falta cortar la charla: contame un poco más o probá de nuevo en unos minutos. — Sofía";
+}
+
 function json(data, status=200, origin=null) {
   return new Response(JSON.stringify(data), {
     status,
@@ -74,6 +92,10 @@ export default {
           data = await response.json();
         }
         if (!response.ok) {
+          if (response.status === 429 || response.status === 503) {
+            const lastMessage = contents[contents.length - 1].parts[0].text;
+            return json({ reply: offlineReply(lastMessage), mode: "automatic_fallback" }, 200, origin);
+          }
           return json({ error: `GEMINI_ERROR_${response.status}: ${data.error?.message || "Falló la llamada a Gemini."}` }, 502, origin);
         }
         const answer = data.candidates?.[0]?.content?.parts?.map(part => part.text || "").join("").trim();
