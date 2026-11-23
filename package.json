@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "deploy": "wrangler deploy --config ./wrangler.jsonc"
+    "deploy": "test -n \"$GEMINI_API_KEY\" || { echo 'Falta GEMINI_API_KEY en Build variables'; exit 1; }; printf '%s' \"$GEMINI_API_KEY\" | npx wrangler secret put GEMINI_API_KEY --config ./wrangler.jsonc && npx wrangler deploy --config ./wrangler.jsonc"
   },
   "devDependencies": {
     "wrangler": "4.166.0"
