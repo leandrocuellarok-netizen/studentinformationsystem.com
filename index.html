@@ -26,7 +26,7 @@ a{color:inherit}
 .hero-mark{font-family:'Archivo Black',sans-serif;font-size:clamp(100px,24vw,300px);line-height:.78;letter-spacing:-.09em;color:transparent;-webkit-text-stroke:2px var(--pink);transform:rotate(-9deg);opacity:.95;text-align:center}
 .hero-mark span{display:block;color:var(--pink);-webkit-text-stroke:0}
 .hero-copy{position:relative;z-index:2;width:100%;padding:50px 7%;display:flex;flex-direction:column;align-items:flex-start}
-.hero-copy .mini{font-family:'DM Mono',monospace;letter-spacing:.18em;font-size:12px;color:#ddd;text-transform:uppercase}
+.hero-copy .mini{font-family:'DM Mono',monospace;letter-spacing:.12em;font-size:12px;color:#ddd;text-transform:uppercase;display:flex;align-items:center;gap:9px;flex-wrap:wrap}.confidential{display:inline-block;background:var(--pink);color:#090909;padding:5px 9px 4px;font-family:'Archivo Black',sans-serif;font-size:14px;letter-spacing:.04em;line-height:1;transform:rotate(-2deg);box-shadow:3px 3px 0 #fff}.confidential .conf-m{display:inline-block;background:#090909;color:var(--pink);padding:1px 3px;margin:0 1px;transform:rotate(8deg) translateY(-2px);text-shadow:1px 1px 0 #fff}
 .hero-copy h1{font-family:'Barlow Condensed',Impact,sans-serif;font-size:clamp(66px,13vw,160px);font-weight:900;line-height:.78;letter-spacing:-.045em;text-transform:uppercase;margin:28px 0 18px;max-width:780px}
 .hero-copy h1 em{font-style:normal;color:var(--pink);display:block}
 .hero-copy p{font-size:clamp(14px,2vw,19px);letter-spacing:.08em;text-transform:uppercase;max-width:480px;line-height:1.4}
@@ -95,7 +95,7 @@ footer h2 span{color:var(--pink)}
  <section class="hero" aria-label="SYSCOM — Student Information System">
   <div class="hero-art"><div class="hero-mark">SYS<span>COM</span></div></div>
   <div class="hero-copy">
-   <div class="mini">Student Information System · Telegram culture</div>
+   <div class="mini"><span>Student Information System ·</span><span class="confidential">CO<span class="conf-m">M</span>FIDENTIAL</span></div>
    <h1>We love <em>chica</em> universitaria</h1>
    <p>Content, community and digital experiences. Find us on Telegram.</p>
    <a class="hero-cta" href="https://t.me/soylauniversitaria" target="_blank" rel="noopener">Enter Telegram ↗</a>
