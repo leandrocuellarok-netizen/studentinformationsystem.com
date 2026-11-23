@@ -28,24 +28,23 @@ function corsHeaders(origin) {
 
 function offlineReply(message) {
   const text = message.toLowerCase();
-
-  // Frases cotidianas tomadas literalmente del chat aportado por el usuario.
-  // Se omiten datos personales y contenido íntimo; Sofía no se presenta como Marina.
   if (/\\b(hola|buenas|buenos días|buenas tardes|buenas noches|hey|holi)\\b/.test(text)) {
-    return "Holaaa. ¿Todo bien?? Jajaja, acá estoy. Hoy la IA está medio saturada, pero podemos romper el hielo igual. ¿Qué me querés contar?";
+    return "Holaaa. ¿Todo bien?? Jajaja. ¿Venís con ganas de charlar, debatir o hacer alguna travesura intelectual?";
   }
   if (/libertad|libre|libertades/.test(text)) {
-    return "Para mí, pensar la libertad exige una distinción: no es hacer cualquier cosa, sino poder elegir con criterio y sin dominación arbitraria. Pero bueno, obvio está en el gusto de cada uno cómo vivirla; la pregunta es cuánto elegimos realmente y cuánto nos condicionan. La IA está temporalmente saturada, así que esta respuesta es automática. ¿Vos cómo lo ves?";
+    return "La libertad no es simplemente hacer cualquier cosa: también implica poder elegir sin dominación y hacerse cargo de las consecuencias. La pregunta incómoda es cuánto de lo que llamamos elección es realmente nuestro. ¿Vos qué pensás?";
   }
-  if (/filosof|pensamiento|idea|verdad|ética|etica|justicia/.test(text)) {
-    return "Es una buena pregunta para pensar sin apurarnos. Yo sinceramente no tengo una respuesta cerrada jajaja. Podemos empezar por separar lo que creemos, las razones que tenemos y las consecuencias. ¿Qué parte te interesa explorar?";
+  if (/filosof|pensamiento|idea|verdad|ética|etica|justicia|nietzsche|platon|aristóteles|aristoteles/.test(text)) {
+    return "Me gusta esa pregunta. Podemos mirarla desde varias perspectivas, pero primero separaría tres cosas: qué afirmamos, qué razones tenemos y qué consecuencias se desprenden. ¿Desde qué autor o problema querés entrar?";
   }
   if (/universidad|estudi|profesor|docente|educación|educacion/.test(text)) {
-    return "La educación no debería limitarse a transmitir información: también tendría que enseñarnos a preguntar, contrastar y pensar por cuenta propia. Claro, sí, entiendo que en la práctica no siempre es fácil. ¿Qué aspecto te interesa?";
+    return "La educación no debería limitarse a transmitir información: también tendría que enseñar a preguntar, contrastar y pensar por cuenta propia. ¿Qué aspecto querés discutir: el aula, las instituciones o el sentido de educar?";
   }
-  return "Te leí. En este momento la IA está con mucha demanda y no puedo elaborar una respuesta personalizada. Pero no hace falta cortar la charla: contame un poco más y lo seguimos cuando vuelva. Estamos hablando entonces. — Sofía";
+  if (/ia|inteligencia artificial|gemini|chatgpt|tecnolog/.test(text)) {
+    return "La IA no es magia ni pensamiento humano en miniatura: es tecnología que produce resultados a partir de patrones, datos y objetivos. Lo interesante es discutir qué capacidades delegamos y quién conserva el control. ¿Vamos por lo técnico o por lo filosófico?";
+  }
+  return "Te leí. Claro, sí, entiendo. Contame un poquito más qué querés decir y lo pensamos juntos. Y si el tema da para una provocación, tampoco me voy a hacer la inocente jajaja.";
 }
-
 function json(data, status=200, origin=null) {
   return new Response(JSON.stringify(data), {
     status,
@@ -61,7 +60,6 @@ export default {
       if (!isAllowedOrigin(origin)) return json({ error: "Origen no permitido." }, 403, origin);
       if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: corsHeaders(origin) });
       if (request.method !== "POST") return json({ error: "Método no permitido." }, 405, origin);
-      if (!env.GEMINI_API_KEY) return json({ error: "CONFIG_ERROR: el Worker no recibió GEMINI_API_KEY en el entorno Production." }, 503, origin);
       let body;
       try { body = await request.json(); } catch { return json({ error: "Solicitud inválida." }, 400, origin); }
       if (!Array.isArray(body.messages) || body.messages.length === 0 || body.messages.length > 12) {
@@ -76,6 +74,8 @@ export default {
       if (!contents.length || contents[contents.length - 1].role !== "user") {
         return json({ error: "No se encontró un mensaje válido." }, 400, origin);
       }
+      const lastMessage = contents[contents.length - 1].parts[0].text;
+      if (!env.GEMINI_API_KEY) return json({ reply: offlineReply(lastMessage), mode: "automatic_fallback" }, 200, origin);
       try {
         const requestBody = JSON.stringify({
           systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
@@ -85,7 +85,8 @@ export default {
         const callGemini = (model) => fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
           method: "POST",
           headers: { "Content-Type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY },
-          body: requestBody
+          body: requestBody,
+          signal: AbortSignal.timeout(3500)
         });
 
         // Primary model first; automatically fall back to a lighter model on temporary overload.
@@ -97,16 +98,15 @@ export default {
         }
         if (!response.ok) {
           if (response.status === 429 || response.status === 503) {
-            const lastMessage = contents[contents.length - 1].parts[0].text;
             return json({ reply: offlineReply(lastMessage), mode: "automatic_fallback" }, 200, origin);
           }
-          return json({ error: `GEMINI_ERROR_${response.status}: ${data.error?.message || "Falló la llamada a Gemini."}` }, 502, origin);
+          return json({ reply: offlineReply(lastMessage), mode: "automatic_fallback" }, 200, origin);
         }
         const answer = data.candidates?.[0]?.content?.parts?.map(part => part.text || "").join("").trim();
-        if (!answer) return json({ error: "La IA no devolvió texto. Probá de nuevo." }, 502, origin);
+        if (!answer) return json({ reply: offlineReply(lastMessage), mode: "automatic_fallback" }, 200, origin);
         return json({ reply: answer }, 200, origin);
       } catch {
-        return json({ error: "No pude conectar con el servicio de IA. Probá de nuevo." }, 502, origin);
+        return json({ reply: offlineReply(lastMessage), mode: "automatic_fallback" }, 200, origin);
       }
     }
     return env.ASSETS.fetch(request);
