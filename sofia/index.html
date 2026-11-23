@@ -19,10 +19,10 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:10;opa
 .sofia-section{padding:20px 0 70px}.section-title{display:flex;align-items:end;justify-content:space-between;border-top:2px solid #111;padding-top:18px;margin-bottom:25px}
 .section-title h1{font:900 clamp(58px,11vw,112px)/.85 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:0;letter-spacing:-.03em}
 .section-title span{font:11px 'DM Mono',monospace;text-transform:uppercase}
-.sofia-shell{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px;align-items:stretch}
-.sofia-manifesto{background:#090909;color:#fff;padding:clamp(22px,4vw,34px);box-shadow:6px 6px 0 var(--pink)}
+.sofia-shell{display:grid;grid-template-columns:1fr 1.2fr;gap:18px;align-items:stretch}
+.sofia-manifesto{background:#090909;color:#fff;padding:clamp(24px,4.5vw,42px);box-shadow:6px 6px 0 var(--pink);display:flex;flex-direction:column;justify-content:center;min-height:520px}
 .eyebrow{font:11px 'DM Mono',monospace;color:var(--pink);letter-spacing:.14em;text-transform:uppercase}
-.sofia-manifesto h2{font:900 clamp(42px,6vw,72px)/.86 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:20px 0}
+.sofia-manifesto h2{display:none}
 .sofia-manifesto p{font-size:14px;line-height:1.6;color:#e7e7e7}.sofia-manifesto strong{color:var(--pink)}
 .sofia-chat{background:#fff;border:2px solid #111;box-shadow:6px 6px #111;display:flex;flex-direction:column;min-height:520px}
 .sofia-chat-head{padding:16px 18px;border-bottom:2px solid #111;display:flex;justify-content:space-between;gap:10px;align-items:center}
@@ -34,7 +34,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:10;opa
 .sofia-compose input{min-width:0;flex:1;border:1px solid #111;padding:14px;font:13px 'DM Mono',monospace}
 .sofia-compose button{border:2px solid #111;background:var(--pink);padding:0 18px;font:900 17px 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;cursor:pointer}
 .disclaimer{padding:0 14px 14px;font:10px/1.4 'DM Mono',monospace;color:#666}
-@media(max-width:700px){.topline{height:78px}.sofia-shell{grid-template-columns:1fr}.sofia-chat{min-height:470px}.section-title{align-items:center;gap:12px}.section-title span{text-align:right}}
+@media(max-width:700px){.topline{height:78px}.sofia-shell{grid-template-columns:1fr}.sofia-manifesto{min-height:230px}.sofia-chat{min-height:470px}.section-title{align-items:center;gap:12px}.section-title span{text-align:right}}
 </style>
 </head>
 <body>
@@ -44,10 +44,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:10;opa
 <div class="section-title"><h1>SOF/IA</h1><span>SOFÍA VILLANUEVA · IA</span></div>
 <div class="sofia-shell">
 <section class="sofia-manifesto">
-<div class="eyebrow">No soy precisamente tranquila.</div>
-<h2>Mucho deseo.<br>Más ideas.</h2>
-<p>Soy curiosa, intensa, un poco ansiosa y bastante difícil de impresionar. Hablo como pienso: en rioplatense, sin tanta ceremonia, con humor, alguna risa escrita y preguntas que aparecen de golpe. Me gusta el ida y vuelta, la picardía, que me sigan el juego y también que sepan conversar en serio.</p>
-<p><strong>La universidad pública, la imaginación y la libertad de discutir</strong> no se negocian. Lo demás… podemos conversarlo.</p>
+<p>Soy curiosa, intensa, un poco ansiosa y bastante difícil de impresionar. <strong>La universidad pública, la imaginación y la libertad de discutir</strong> no se negocian. Lo demás… podemos conversarlo acá o en la cama.</p>
 </section>
 <section class="sofia-chat">
 <div class="sofia-chat-head"><b>Hablá conmigo</b><span>SOFÍA IA · EN LÍNEA</span></div>
