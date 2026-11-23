@@ -91,28 +91,6 @@ footer h2 span{color:var(--pink)}
 .wa-mark{display:inline-grid;place-items:center;width:28px;height:28px;border:2px solid var(--pink);border-radius:50%;font:bold 17px Arial;margin-right:6px}
 @media(max-width:700px){.poster-section{padding-bottom:42px}.poster-frame{padding:8px}.social-row{display:block}.social-card{margin-bottom:12px}}
 
-/* Conoceme · Sofia AI character chat prototype */
-.sofia-section{padding:12px 0 62px;scroll-margin-top:20px}
-.sofia-shell{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px;align-items:stretch}
-.sofia-manifesto{background:#090909;color:#fff;padding:25px;box-shadow:6px 6px 0 var(--pink)}
-.sofia-manifesto .eyebrow{font:11px 'DM Mono',monospace;color:var(--pink);letter-spacing:.14em;text-transform:uppercase}
-.sofia-manifesto h2{font:900 clamp(42px,6vw,72px)/.86 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:20px 0}
-.sofia-manifesto p{font-size:14px;line-height:1.55;color:#e7e7e7}
-.sofia-manifesto strong{color:var(--pink)}
-.sofia-chat{background:#fff;border:2px solid #111;box-shadow:6px 6px 0 #111;display:flex;flex-direction:column;min-height:410px}
-.sofia-chat-head{padding:15px 18px;border-bottom:2px solid #111;display:flex;justify-content:space-between;gap:10px;align-items:center}
-.sofia-chat-head b{font:900 25px 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase}
-.sofia-chat-head span{font:10px 'DM Mono',monospace;color:#a00039}
-.sofia-messages{padding:18px;display:flex;flex-direction:column;gap:12px;flex:1;max-height:340px;overflow:auto}
-.sofia-message{max-width:88%;padding:12px 14px;font-size:13px;line-height:1.5;border:1px solid #111}
-.sofia-message.bot{align-self:flex-start;background:#f1f0ed}
-.sofia-message.user{align-self:flex-end;background:var(--pink)}
-.sofia-compose{display:flex;gap:8px;padding:12px;border-top:1px solid #111}
-.sofia-compose input{min-width:0;flex:1;border:1px solid #111;padding:13px;font:13px 'DM Mono',monospace}
-.sofia-compose button{border:2px solid #111;background:var(--pink);padding:0 17px;font:900 16px 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;cursor:pointer}
-.sofia-disclaimer{padding:0 14px 13px;font:10px/1.4 'DM Mono',monospace;color:#666}
-@media(max-width:700px){.sofia-shell{grid-template-columns:1fr}.sofia-chat{min-height:390px}}
-
 </style>
 </head>
 <body>
@@ -126,7 +104,7 @@ footer h2 span{color:var(--pink)}
    <p>Content, community and digital experiences. Find us on Telegram.</p>
    <a class="hero-cta" href="https://t.me/soylauniversitaria" target="_blank" rel="noopener">Enter Telegram ↗</a>
   </div>
-  <div class="sticker"><a href="https://syscom.sbs/universidad/"><b>Notis Uni ↗</b></a><a href="https://syscom.sbs/apuntes/"><b>Apuntes ↗</b></a><a href="https://syscom.sbs/textos/"><b>Textos ↗</b></a><a href="https://syscom.sbs/ruleta/"><b>Ruleta Hotsita ↗</b></a><a href="https://t.me/soylauniversitaria" target="_blank" rel="noopener"><b>Telegram ↗</b></a></div>
+  <div class="sticker"><a href="https://syscom.sbs/universidad/"><b>Notis Uni ↗</b></a><a href="https://syscom.sbs/apuntes/"><b>Apuntes ↗</b></a><a href="https://syscom.sbs/sofia/"><b>SOF/IA ↗</b></a><a href="https://syscom.sbs/ruleta/"><b>Ruleta Hotsita ↗</b></a><a href="https://t.me/soylauniversitaria" target="_blank" rel="noopener"><b>Telegram ↗</b></a></div>
   <div class="cross">×</div>
  </section>
  <section class="intro">
@@ -144,24 +122,7 @@ footer h2 span{color:var(--pink)}
  <figure class="poster-frame"><img src="assets/6fa313d6-8bd8-4271-a56e-141267fbf4ad.png" alt="Poster de Marina, Chica Universitarixxx" loading="lazy"><figcaption class="poster-caption">Chica Universitarixxx · Universidad · Apuntes · Textos malditos</figcaption></figure>
 </section>
 
-<section class="sofia-section" id="conoceme" aria-label="Conocé a Sofía">
-  <div class="section-title"><h2>Conoceme</h2><span>SOFÍA VILLANUEVA · IA</span></div>
-  <div class="sofia-shell">
-   <div class="sofia-manifesto">
-    <div class="eyebrow">No soy precisamente tranquila.</div>
-    <h2>Mucho deseo.<br>Más ideas.</h2>
-    <p>Soy curiosa, intensa, un poco ansiosa y bastante difícil de impresionar. Hablo como pienso: en rioplatense, sin tanta ceremonia, con humor, alguna risa escrita y preguntas que aparecen de golpe. Me gusta el ida y vuelta, la picardía, que me sigan el juego y también que sepan conversar en serio.</p>
-    <p><strong>La universidad pública, la imaginación y la libertad de discutir</strong> no se negocian. Lo demás… podemos conversarlo.</p>
-   </div>
-   <div class="sofia-chat">
-    <div class="sofia-chat-head"><b>Hablá conmigo</b><span>SOFÍA IA · EN LÍNEA</span></div>
-    <div class="sofia-messages" id="sofiaMessages" aria-live="polite">
-     <div class="sofia-message bot">¿Así que querés conocerme? Qué valiente. Empezá por algo interesante: ¿qué idea te obsesiona últimamente?</div>
-    </div>
-    <form class="sofia-compose" id="sofiaForm"><input id="sofiaInput" maxlength="500" autocomplete="off" placeholder="Escribime algo..." aria-label="Escribile a Sofía"><button type="submit">Enviar ↗</button></form>
-   </div>
-  </div>
- </section>
+
 <footer><div class="wrap">
  <div class="footer-top"><div><h2>Contact<br>for <span>purchase.</span></h2><a class="buy" href="https://t.me/soyuniversitaria" target="_blank" rel="noopener">Telegram · @soyuniversitaria ↗</a></div><div style="font-family:'DM Mono',monospace;font-size:11px;text-align:right">SYSCOM<br>CHICA UNIVERSITARIXXX<br><br>PRIVATE SALES</div></div>
  <div class="pay-area">
