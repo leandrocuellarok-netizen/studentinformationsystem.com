@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="SYSCOM — Student Information System. Chica Universitaria content on Telegram.">
-<title>SYSCOM — Student Information System</title>
+<title>SYSCOM — Killer Queen</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow+Condensed:wght@700;800;900&family=DM+Mono:wght@400;500&display=swap');
 :root{--pink:#ff075c;--paper:#f1f0ed;--black:#090909;--white:#fff}
@@ -68,6 +68,22 @@ footer h2 span{color:var(--pink)}
 .footer-note{font-family:'DM Mono',monospace;font-size:10px;color:#aaa;margin-top:30px}
 @media(max-width:700px){.topline{height:70px}.kicker{margin-top:25px}.hero{min-height:610px}.hero-copy{padding:35px 6%}.sticker{right:3%;top:auto;bottom:20%;}.cross{bottom:3%;left:2%}.intro{grid-template-columns:1fr;gap:18px;padding-bottom:42px}.intro .handle{text-align:left}.grid{grid-template-columns:1fr}.tools{grid-template-columns:1fr}.footer-top{display:block}.section-title{align-items:center}}
 @media(max-width:390px){.wrap{width:calc(100% - 28px)}.hero{min-height:550px}.hero-copy h1{font-size:62px}.sticker b{font-size:22px}.fields{grid-template-columns:1fr 1fr}}
+
+/* Killer Queen poster + payment/contact footer */
+.poster-section{padding:8px 0 64px;text-align:center}
+.poster-frame{width:min(560px,100%);margin:28px auto 0;padding:12px;background:#fff;border:2px solid #111;box-shadow:9px 9px 0 var(--pink);transform:rotate(-1deg)}
+.poster-frame img{display:block;width:100%;height:auto;border:1px solid #111}
+.poster-caption{font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;margin-top:16px;letter-spacing:.08em}
+.pay-area{margin-top:34px;padding:28px 0;border-top:1px solid #555}
+.pay-link,.contact-link{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-family:'Barlow Condensed',Impact,sans-serif;font-size:clamp(22px,4vw,34px);font-weight:900;text-transform:uppercase;padding:12px 18px;margin:8px 8px 8px 0;background:var(--pink);color:#090909;box-shadow:5px 5px 0 #fff;transform:rotate(-1deg)}
+.pay-joke{font-family:'Barlow Condensed',Impact,sans-serif;font-size:clamp(24px,4vw,36px);font-weight:900;text-transform:uppercase;margin:18px 0 8px;color:#fff}
+.real-name{font-family:'DM Mono',monospace;font-size:12px;color:#bbb;letter-spacing:.08em;margin:8px 0 28px}
+.social-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.social-card{flex:1 1 230px;border:1px solid #777;padding:16px;background:#151515}
+.social-card h3{font-family:'Barlow Condensed',Impact,sans-serif;font-size:26px;text-transform:uppercase;margin:0 0 10px}
+.social-card a{color:var(--pink);font-family:'DM Mono',monospace;font-size:12px;overflow-wrap:anywhere}
+.wa-mark{display:inline-grid;place-items:center;width:28px;height:28px;border:2px solid var(--pink);border-radius:50%;font:bold 17px Arial;margin-right:6px}
+@media(max-width:700px){.poster-section{padding-bottom:42px}.poster-frame{padding:8px}.social-row{display:block}.social-card{margin-bottom:12px}}
 </style>
 </head>
 <body>
@@ -109,9 +125,24 @@ footer h2 span{color:var(--pink)}
   </div>
  </section>
 </div>
+
+<section class="poster-section" aria-label="Killer Queen poster">
+ <div class="section-title"><h2>Killer Queen</h2><span>Poster · Marina</span></div>
+ <figure class="poster-frame"><img src="assets/marina-poster.jpg" alt="Poster de Marina, Killer Queen" loading="lazy"><figcaption class="poster-caption">Killer Queen · Universidad · Apuntes · Textos malditos</figcaption></figure>
+</section>
 <footer><div class="wrap">
- <div class="footer-top"><div><h2>Contact<br>for <span>purchase.</span></h2><a class="buy" href="https://t.me/soyuniversitaria" target="_blank" rel="noopener">Telegram · @soyuniversitaria ↗</a></div><div style="font-family:'DM Mono',monospace;font-size:11px;text-align:right">SYSCOM<br>STUDENT INFORMATION SYSTEM<br><br>TELEGRAM COMMUNITY</div></div>
- <div class="footer-note">SYSCOM — STUDENT INFORMATION SYSTEM · Prices and availability are subject to confirmation.</div>
+ <div class="footer-top"><div><h2>Contact<br>for <span>purchase.</span></h2><a class="buy" href="https://t.me/soyuniversitaria" target="_blank" rel="noopener">Telegram · @soyuniversitaria ↗</a></div><div style="font-family:'DM Mono',monospace;font-size:11px;text-align:right">SYSCOM<br>KILLER QUEEN<br><br>PRIVATE SALES</div></div>
+ <div class="pay-area">
+  <a class="pay-link" href="https://link.mercadopago.com.ar/marinacespedes" target="_blank" rel="noopener">Abonar por Mercado Pago Argentina ↗</a>
+  <div class="pay-joke">Mostrá ese comprobante y no chamuyes (jaja)</div>
+  <div class="real-name">DON´T SEE MYYYYY REAL NAME JEJE</div>
+  <div class="section-title"><h2>Follow / Contact</h2><span>Official channels</span></div>
+  <div class="social-row">
+   <div class="social-card"><h3>WhatsApp Channel</h3><a href="https://whatsapp.com/channel/0029VbEDpEgLdQeUlUIVC23D" target="_blank" rel="noopener">◉ Abrir canal de WhatsApp ↗</a></div>
+   <div class="social-card"><h3><span class="wa-mark">W</span>WhatsApp · Solo ventas</h3><a href="https://wa.me/5491124826532" target="_blank" rel="noopener">+54 9 11 2482-6532 · Contactar ventas ↗</a></div>
+  </div>
+ </div>
+ <div class="footer-note">SYSCOM — KILLER QUEEN · Prices and availability are subject to confirmation.</div>
 </div></footer>
 <script>
 /* Edit these USD values to update the catalog. */
