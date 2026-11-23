@@ -145,7 +145,7 @@ footer h2 span{color:var(--pink)}
     <p><strong>La universidad pública, la imaginación y la libertad de discutir</strong> no se negocian. Lo demás… podemos conversarlo.</p>
    </div>
    <div class="sofia-chat">
-    <div class="sofia-chat-head"><b>Hablá conmigo</b><span>DEMO DE PERSONALIDAD · IA EN PREPARACIÓN</span></div>
+    <div class="sofia-chat-head"><b>Hablá conmigo</b><span>SOFÍA IA · EN LÍNEA</span></div>
     <div class="sofia-messages" id="sofiaMessages" aria-live="polite">
      <div class="sofia-message bot">¿Así que querés conocerme? Qué valiente. Empezá por algo interesante: ¿qué idea te obsesiona últimamente?</div>
     </div>
@@ -273,21 +273,39 @@ function updateWorldClocks(){const now=new Date();const clocks=clockZones.map((c
 
 const sofiaForm=document.getElementById("sofiaForm");
 if(sofiaForm){
- sofiaForm.addEventListener("submit",event=>{
+ const input=document.getElementById("sofiaInput");
+ const messages=document.getElementById("sofiaMessages");
+ const history=[];
+ sofiaForm.addEventListener("submit",async event=>{
   event.preventDefault();
-  const input=document.getElementById("sofiaInput"),value=input.value.trim();
+  const value=input.value.trim();
   if(!value)return;
-  const messages=document.getElementById("sofiaMessages");
-  const user=document.createElement("div");user.className="sofia-message user";user.textContent=value;messages.appendChild(user);
-  const reply=document.createElement("div");reply.className="sofia-message bot";
-  const lower=value.toLowerCase();
-  let answer="Mmm, pará… eso tiene algo. Jajaja. Pero no me dejes con la mitad de la historia: contame un poco más, ¿qué quisiste decir?";
-  if(/hola|buenas|hey/.test(lower))answer="Holaaa. ¿Cómo andás? Jajaja, apareciste. A ver, contame: ¿venís con una historia o tengo que sacártela de a poquito?";;
-  else if(/universidad|facultad|estudi/.test(lower))answer="Ay, la universidad pública me importa de verdad. No es solamente cursar: es abrir una puerta que no debería tener dueño. ¿Vos qué cambiarías de tu facultad?";;
-  else if(/milei|pol[ií]tica|gobierno/.test(lower))answer="Uff, de política podemos hablar largo. Pero no me alcanza con repetir slogans: quiero argumentos, consecuencias y un poquito de honestidad intelectual. ¿Qué tema te tiene pensando?";;
-  else if(/amor|deseo|seduc|sexo|sensual/.test(lower))answer="Jajajaja, ¿así que venimos por ese lado? Me gusta el coqueteo cuando hay imaginación y complicidad. No hace falta correr: decime qué te da curiosidad y vemos cómo sigue el juego.";;
-  else if(/qui[eé]n sos|cómo sos|como sos/.test(lower))answer="Soy curiosa, medio ansiosa, orgullosa y bastante charlatana cuando algo me interesa. Jajaja. Me gusta provocar un poquito, contar historias y que me discutan con inteligencia. ¿Te alcanza o querés seguir investigando?";;
-  reply.textContent=answer;messages.appendChild(reply);messages.scrollTop=messages.scrollHeight;input.value="";
+  const user=document.createElement("div");
+  user.className="sofia-message user";
+  user.textContent=value;
+  messages.appendChild(user);
+  input.value="";
+  const reply=document.createElement("div");
+  reply.className="sofia-message bot";
+  reply.textContent="Dame un segundito…";
+  messages.appendChild(reply);
+  messages.scrollTop=messages.scrollHeight;
+  history.push({role:"user",content:value});
+  try{
+   const response=await fetch("/chat",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({messages:history.slice(-12)})
+   });
+   const data=await response.json();
+   if(!response.ok)throw new Error(data.error||"No pude responder ahora.");
+   reply.textContent=data.reply;
+   history.push({role:"model",content:data.reply});
+  }catch(error){
+   reply.textContent=error.message||"Se cortó la conexión. Probá otra vez.";
+   history.pop();
+  }
+  messages.scrollTop=messages.scrollHeight;
  });
 }
 
