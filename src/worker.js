@@ -55,16 +55,24 @@ export default {
         return json({ error: "No se encontró un mensaje válido." }, 400, origin);
       }
       try {
-        const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent", {
+        const requestBody = JSON.stringify({
+          systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
+          contents,
+          generationConfig: { temperature: 0.9, maxOutputTokens: 500 }
+        });
+        const callGemini = (model) => fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
           method: "POST",
           headers: { "Content-Type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY },
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
-            contents,
-            generationConfig: { temperature: 0.9, maxOutputTokens: 500 }
-          })
+          body: requestBody
         });
-        const data = await response.json();
+
+        // Primary model first; automatically fall back to a lighter model on temporary overload.
+        let response = await callGemini("gemini-3.8-flash");
+        let data = await response.json();
+        if (response.status === 429 || response.status === 503) {
+          response = await callGemini("gemini-3.5-flash-lite");
+          data = await response.json();
+        }
         if (!response.ok) {
           return json({ error: `GEMINI_ERROR_${response.status}: ${data.error?.message || "Falló la llamada a Gemini."}` }, 502, origin);
         }
