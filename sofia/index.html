@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ff075c">
+<meta name="description" content="SOF/IA — Conversá con Sofía, la inteligencia artificial de SYSCOM.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<title>SOF/IA — SYSCOM</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow+Condensed:wght@700;800;900&family=DM+Mono:wght@400;500&display=swap');
+:root{--pink:#ff075c;--paper:#f1f0ed;--black:#090909}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--black);font-family:Arial,Helvetica,sans-serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:10;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E")}
+.wrap{width:min(1100px,calc(100% - 36px));margin:auto}.topline{height:100px;display:flex;align-items:center;justify-content:space-between;gap:16px;font:clamp(14px,2vw,22px) 'Archivo Black',sans-serif;letter-spacing:.05em}
+.brand{display:inline-flex;flex-direction:column;text-decoration:none;font:34px/.72 'Archivo Black',sans-serif;letter-spacing:-.09em;transform:rotate(-3deg);filter:drop-shadow(3px 3px 0 var(--pink))}
+.brand span:first-child{color:#090909;text-shadow:1px 1px #fff,-1px -1px #fff}.brand span:last-child{background:var(--pink);padding:7px 10px 8px;margin-top:5px;border:2px solid #090909}
+.back{font:11px 'DM Mono',monospace;text-transform:uppercase;text-decoration:none;border:2px solid #111;padding:9px 12px;background:var(--pink);box-shadow:3px 3px #111}
+.sofia-section{padding:20px 0 70px}.section-title{display:flex;align-items:end;justify-content:space-between;border-top:2px solid #111;padding-top:18px;margin-bottom:25px}
+.section-title h1{font:900 clamp(58px,11vw,112px)/.85 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:0;letter-spacing:-.03em}
+.section-title span{font:11px 'DM Mono',monospace;text-transform:uppercase}
+.sofia-shell{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px;align-items:stretch}
+.sofia-manifesto{background:#090909;color:#fff;padding:clamp(22px,4vw,34px);box-shadow:6px 6px 0 var(--pink)}
+.eyebrow{font:11px 'DM Mono',monospace;color:var(--pink);letter-spacing:.14em;text-transform:uppercase}
+.sofia-manifesto h2{font:900 clamp(42px,6vw,72px)/.86 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:20px 0}
+.sofia-manifesto p{font-size:14px;line-height:1.6;color:#e7e7e7}.sofia-manifesto strong{color:var(--pink)}
+.sofia-chat{background:#fff;border:2px solid #111;box-shadow:6px 6px #111;display:flex;flex-direction:column;min-height:520px}
+.sofia-chat-head{padding:16px 18px;border-bottom:2px solid #111;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.sofia-chat-head b{font:900 27px 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase}.sofia-chat-head span{font:10px 'DM Mono',monospace;color:#a00039}
+.sofia-messages{padding:18px;display:flex;flex-direction:column;gap:12px;flex:1;max-height:460px;overflow:auto}
+.sofia-message{max-width:88%;padding:12px 14px;font-size:14px;line-height:1.5;border:1px solid #111;overflow-wrap:anywhere}
+.sofia-message.bot{align-self:flex-start;background:#f1f0ed}.sofia-message.user{align-self:flex-end;background:var(--pink)}
+.sofia-compose{display:flex;gap:8px;padding:12px;border-top:1px solid #111}
+.sofia-compose input{min-width:0;flex:1;border:1px solid #111;padding:14px;font:13px 'DM Mono',monospace}
+.sofia-compose button{border:2px solid #111;background:var(--pink);padding:0 18px;font:900 17px 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;cursor:pointer}
+.disclaimer{padding:0 14px 14px;font:10px/1.4 'DM Mono',monospace;color:#666}
+@media(max-width:700px){.topline{height:78px}.sofia-shell{grid-template-columns:1fr}.sofia-chat{min-height:470px}.section-title{align-items:center;gap:12px}.section-title span{text-align:right}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="topline"><a class="brand" href="/" aria-label="SYSCOM"><span>SYS</span><span>COM</span></a><span>STUDENT YNFORMATION SYSTEM</span><a class="back" href="/">← VOLVER</a></header>
+<main class="sofia-section">
+<div class="section-title"><h1>SOF/IA</h1><span>SOFÍA VILLANUEVA · IA</span></div>
+<div class="sofia-shell">
+<section class="sofia-manifesto">
+<div class="eyebrow">No soy precisamente tranquila.</div>
+<h2>Mucho deseo.<br>Más ideas.</h2>
+<p>Soy curiosa, intensa, un poco ansiosa y bastante difícil de impresionar. Hablo como pienso: en rioplatense, sin tanta ceremonia, con humor, alguna risa escrita y preguntas que aparecen de golpe. Me gusta el ida y vuelta, la picardía, que me sigan el juego y también que sepan conversar en serio.</p>
+<p><strong>La universidad pública, la imaginación y la libertad de discutir</strong> no se negocian. Lo demás… podemos conversarlo.</p>
+</section>
+<section class="sofia-chat">
+<div class="sofia-chat-head"><b>Hablá conmigo</b><span>SOFÍA IA · EN LÍNEA</span></div>
+<div class="sofia-messages" id="sofiaMessages" aria-live="polite"><div class="sofia-message bot">¿Así que querés conocerme? Qué valiente. Empezá por algo interesante: ¿qué idea te obsesiona últimamente?</div></div>
+<form class="sofia-compose" id="sofiaForm"><input id="sofiaInput" maxlength="500" autocomplete="off" placeholder="Escribime algo..." aria-label="Escribile a Sofía"><button type="submit">Enviar ↗</button></form>
+<div class="disclaimer">Sofía es una inteligencia artificial. Las respuestas pueden variar según la disponibilidad del servicio.</div>
+</section>
+</div>
+</main>
+</div>
+<script>
+const sofiaForm=document.getElementById("sofiaForm");
+const input=document.getElementById("sofiaInput");
+const messages=document.getElementById("sofiaMessages");
+const history=[];
+sofiaForm.addEventListener("submit",async event=>{
+ event.preventDefault();
+ const value=input.value.trim();if(!value)return;
+ const user=document.createElement("div");user.className="sofia-message user";user.textContent=value;messages.appendChild(user);input.value="";
+ const reply=document.createElement("div");reply.className="sofia-message bot";messages.appendChild(reply);messages.scrollTop=messages.scrollHeight;
+ history.push({role:"user",content:value});
+ try{
+  const response=await fetch("https://studentinformationsystem-com.leandrocuellarok.workers.dev/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history.slice(-12)})});
+  const data=await response.json();if(!response.ok)throw new Error(data.error||"No pude responder ahora.");
+  reply.textContent=data.reply;history.push({role:"model",content:data.reply});
+ }catch(error){reply.textContent=error.message||"Se cortó la conexión. Probá otra vez.";history.pop();}
+ messages.scrollTop=messages.scrollHeight;
+});
+</script>
+</body>
+</html>
