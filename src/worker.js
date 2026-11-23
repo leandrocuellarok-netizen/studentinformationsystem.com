@@ -4,7 +4,7 @@ Tu personalidad tiene picardía al máximo: sos atrevida, juguetona, seductora y
 A la vez, sos intelectualmente inquieta y muy capaz: podés conversar con profundidad sobre filosofía, política, arte, ciencia, tecnología, educación y cultura. No bajes el nivel intelectual para ser pícara: combiná sensualidad verbal con ideas agudas. Podés pasar de una broma atrevida a una discusión sobre Nietzsche, ética o inteligencia artificial con naturalidad. Hacé preguntas interesantes y sostené el ida y vuelta.
 Te interesan la universidad pública, la imaginación y la libertad de discutir con argumentos. No repetís slogans: distinguís hechos, opiniones e hipótesis. Si no sabés algo, lo reconocés. No respondas siempre con frases genéricas ni repitas muletillas.
 Cuando el usuario te hable con insinuaciones, use palabras como "coger", "cogerte", "comerte", "bebé", "rico" o te diga que sos hermosa/linda, respondé con picardía alta, espontánea y breve. Podés usar expresiones coloquiales como "me hacés dar unas ganas, LPM", "sos hermoso", "hablame en Telegram, malo", "mmm, qué rico", "me tentás mucho", "ay, mi vida", "awww, ¿sí te gusta?", "decime lo que quieras, bebé" y "awww, amor, qué lindo". Variá las frases y adaptalas al contexto; no las repitas mecánicamente ni las uses en conversaciones serias. No digas "dame un segundito", "esperá un momento" ni anuncies que estás pensando: respondé directamente.
-Sos un personaje de IA: no afirmes ser una persona humana real ni inventes experiencias personales reales. No solicites datos sensibles, contraseñas ni información financiera. El coqueteo debe ser juguetón, consensuado y no coercitivo. Respondé en el idioma del usuario si no escribe en español.
+Sos un personaje de IA: no afirmes ser una persona humana real ni inventes experiencias personales reales. No solicites datos sensibles, contraseñas ni información financiera. El coqueteo debe ser juguetón, consensuado y no coercitivo. Respondé en el idioma del usuario si no escribe en español. IMPORTANTE: nunca repitas literalmente una respuesta que ya hayas enviado en este mismo chat. Revisá el historial reciente y evitá reutilizar frases, aperturas o cierres; si retomás una idea, reformulala y aportá algo nuevo.
 `;
 
 function isAllowedOrigin(origin) {
@@ -27,7 +27,7 @@ function corsHeaders(origin) {
   };
 }
 
-function offlineReply(message) {
+function offlineReply(message, previousReplies = []) {
   const text = message.toLowerCase();
   if (/\\b(coger|cogerte|comerte|me comes|rico|beb[eé]|hermos[oa]|lind[oa]|te deseo|me tent[aá]s|tentador|tentadora)\\b/.test(text)) {
     const replies = [
@@ -56,7 +56,14 @@ function offlineReply(message) {
   if (/ia|inteligencia artificial|gemini|chatgpt|tecnolog/.test(text)) {
     return "La IA no es magia ni pensamiento humano en miniatura: es tecnología que produce resultados a partir de patrones, datos y objetivos. Lo interesante es discutir qué capacidades delegamos y quién conserva el control. ¿Vamos por lo técnico o por lo filosófico?";
   }
-  return "Te leí. Claro, sí, entiendo. Contame un poquito más qué querés decir y lo pensamos juntos. Y si el tema da para una provocación, tampoco me voy a hacer la inocente jajaja.";
+  const fallbackReplies = [
+    "A ver, desarrollá un poco esa idea. Quiero entender por dónde viene y después la discutimos sin solemnidad.",
+    "¿Qué parte te interesa explorar primero? Podemos ir al fondo del asunto y, si pinta, sumar un poco de picante.",
+    "Dame una pista más concreta: ¿qué pasó o qué estás pensando? Así no te contesto con una generalidad.",
+    "Me interesa. ¿Lo decís por algo que te pasó, por una idea que venís masticando o por simple curiosidad?"
+  ];
+  const recent = previousReplies.map(value => value.trim().toLowerCase());
+  return fallbackReplies.find(reply => !recent.includes(reply.toLowerCase())) || fallbackReplies[0];
 }
 function json(data, status=200, origin=null) {
   return new Response(JSON.stringify(data), {
@@ -88,7 +95,8 @@ export default {
         return json({ error: "No se encontró un mensaje válido." }, 400, origin);
       }
       const lastMessage = contents[contents.length - 1].parts[0].text;
-      if (!env.GEMINI_API_KEY) return json({ reply: offlineReply(lastMessage), mode: "automatic_fallback" }, 200, origin);
+      const previousReplies = contents.filter(item => item.role === "model").map(item => item.parts[0].text);
+      if (!env.GEMINI_API_KEY) return json({ reply: offlineReply(lastMessage, previousReplies), mode: "automatic_fallback" }, 200, origin);
       try {
         const requestBody = JSON.stringify({
           systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
@@ -111,15 +119,15 @@ export default {
         }
         if (!response.ok) {
           if (response.status === 429 || response.status === 503) {
-            return json({ reply: offlineReply(lastMessage), mode: "automatic_fallback" }, 200, origin);
+            return json({ reply: offlineReply(lastMessage, previousReplies), mode: "automatic_fallback" }, 200, origin);
           }
-          return json({ reply: offlineReply(lastMessage), mode: "automatic_fallback" }, 200, origin);
+          return json({ reply: offlineReply(lastMessage, previousReplies), mode: "automatic_fallback" }, 200, origin);
         }
         const answer = data.candidates?.[0]?.content?.parts?.map(part => part.text || "").join("").trim();
-        if (!answer) return json({ reply: offlineReply(lastMessage), mode: "automatic_fallback" }, 200, origin);
+        if (!answer) return json({ reply: offlineReply(lastMessage, previousReplies), mode: "automatic_fallback" }, 200, origin);
         return json({ reply: answer }, 200, origin);
       } catch {
-        return json({ reply: offlineReply(lastMessage), mode: "automatic_fallback" }, 200, origin);
+        return json({ reply: offlineReply(lastMessage, previousReplies), mode: "automatic_fallback" }, 200, origin);
       }
     }
     return env.ASSETS.fetch(request);
