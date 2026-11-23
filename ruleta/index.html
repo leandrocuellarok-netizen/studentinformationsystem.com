@@ -16,7 +16,7 @@ h1{font:900 clamp(54px,10vw,112px)/.83 'Barlow Condensed';text-transform:upperca
 header p{font:13px 'DM Mono';color:#ddd;max-width:480px;line-height:1.6}
 main{padding:44px 0 70px}.game{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:center}
 .wheel-wrap{position:relative;width:min(100%,470px);margin:auto;aspect-ratio:1}
-.wheel{width:100%;height:100%;border-radius:50%;border:9px solid #090909;box-shadow:8px 8px 0 var(--pink);background:conic-gradient(#ff075c 0deg 51.42deg,#fff 51.42deg 102.84deg,#ff075c 102.84deg 154.26deg,#fff 154.26deg 205.68deg,#ff075c 205.68deg 257.1deg,#fff 257.1deg 308.52deg,#ff075c 308.52deg 360deg);transition:transform 4.2s cubic-bezier(.12,.72,.12,1);position:relative;overflow:hidden}
+.wheel{width:100%;height:100%;border-radius:50%;border:9px solid #090909;box-shadow:8px 8px 0 var(--pink);background:#fff;transition:transform 4.2s cubic-bezier(.12,.72,.12,1);position:relative;overflow:hidden}
 .wheel:after{content:"SYSCOM";position:absolute;inset:40%;border-radius:50%;background:#090909;border:5px solid white;display:grid;place-items:center;color:var(--pink);font:12px 'Archivo Black'}
 .pointer{position:absolute;z-index:2;top:-12px;left:calc(50% - 17px);width:0;height:0;border-left:17px solid transparent;border-right:17px solid transparent;border-top:36px solid #090909;filter:drop-shadow(2px 2px 0 var(--pink))}
 .wheel-labels{position:absolute;inset:0;pointer-events:none}.wheel-labels span{position:absolute;left:50%;top:50%;width:42%;text-align:center;font:900 clamp(9px,1.2vw,12px) 'Barlow Condensed';text-transform:uppercase;color:#090909;transform-origin:left center}
@@ -46,11 +46,18 @@ const prizes=[
 "UN AUDIO DE 20 SEGUNDOS PARA UN AMIGO BIEN CACHONDI",
 "ME GANÉ QUE ME DIGAS BUENOS DÍAS POR 5 DÍAS CON UNA FOTO",
 "ME GANÉ 2 FOTOS TUYAS MUY TRANQUI, PERO GANÉ ALGO",
-"UN AUDIO DE 30 SEGUNDOS PARA UN AMIGO BIEN SEXY"
+"UN AUDIO DE 30 SEGUNDOS PARA UN AMIGO BIEN SEXY",
+"GANASTE UNA FOTITO DE MI COLIÑA",
+"GANASTE 3 FOTOS MÍAS SEXYS NO EXPLÍCITAS",
+"GANASTE 4 MINUTOS PARA HABLARME POR TELÉFONO Y DECIRME LO QUE QUIERAS",
+"GANASTE UNA VIDEOLLAMADA DE 2 MINUTOS",
+"GANASTE UNA FOTO EN TANGA",
+"GANASTE UN VIDEO MIO EN 4 NO EXPLÍCITO",
+"GANASTE UN AUDIO MIO PARA UN AMIGO TUYO QUE CUMPLA ESTE MES O EL PRÓXIMO DE 20 SEGUNDOS"
 ];
 const wheel=document.getElementById('wheel'),spin=document.getElementById('spin'),out=document.getElementById('outcome'),claim=document.getElementById('claim'),credits=document.getElementById('credits'),daily=document.getElementById('daily');
 const key='syscom_roulette_last_spin_v1';let busy=false;
-document.getElementById('labels').innerHTML=prizes.map((p,i)=>{const angle=i*360/prizes.length+18;return '<span style="transform:rotate('+angle+'deg) translateY(-'+Math.min(150,window.innerWidth*.15)+'px)">'+(i+1)+'</span>'}).join('');
+const segment=360/prizes.length;wheel.style.background='conic-gradient('+prizes.map((p,i)=>(i%2===0?'#ff075c':'#fff')+' '+(i*segment)+'deg '+((i+1)*segment)+'deg').join(',')+')';document.getElementById('labels').innerHTML=prizes.map((p,i)=>{const angle=i*segment+segment/2;return '<span style="transform:rotate('+angle+'deg) translateY(-'+Math.min(150,window.innerWidth*.15)+'px)">'+(i+1)+'</span>'}).join('');
 function canSpin(){const last=Number(localStorage.getItem(key)||0);return Date.now()-last>=86400000}
 function update(){const allowed=canSpin();credits.textContent=allowed?'1':'0';spin.disabled=!allowed||busy;daily.textContent=allowed?'TENÉS TU GIRO GRATIS DE HOY. UN GIRO CADA 24 HORAS.':'YA USASTE TU GIRO DE HOY. VOLVÉ DESPUÉS DE 24 HORAS.'}
 spin.addEventListener('click',()=>{if(busy||!canSpin())return;busy=true;spin.disabled=true;claim.hidden=true;out.textContent='GIRANDO…';const index=Math.floor(Math.random()*prizes.length);const segment=360/prizes.length;const rotation=360*6+(360-index*segment-segment/2);wheel.style.transform='rotate('+rotation+'deg)';setTimeout(()=>{localStorage.setItem(key,String(Date.now()));out.textContent=prizes[index];claim.hidden=false;busy=false;update()},4300)});
