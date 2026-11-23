@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Catálogo de experiencias digitales y conversor internacional de divisas.">
+<title>Catálogo de servicios | studentinformationsystem.com</title>
+<style>
+:root{color-scheme:light;--ink:#18212f;--muted:#64748b;--line:#e5eaf1;--paper:#f6f8fb;--accent:#3157d5;--accent2:#eaf0ff}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:#101b31;color:white;padding:52px 22px 44px} .wrap{max-width:1080px;margin:auto}header .eyebrow{color:#b9c8ff;text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;font-weight:700}h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.08;margin:12px 0}header p{max-width:680px;color:#d5deef;margin:14px 0 0}
+main{padding:30px 22px 64px}.section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin:0 0 18px}h2{font-size:1.55rem;margin:0}.sub{color:var(--muted);margin:5px 0 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:15px}
+.card,.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 5px 18px #17233b08}.card h3{margin:0 0 8px;font-size:1.08rem}.card p{margin:0 0 16px;color:var(--muted);font-size:.94rem;min-height:66px}.prices{display:flex;flex-wrap:wrap;gap:8px}.price{background:var(--accent2);color:#2445b2;border-radius:9px;padding:7px 10px;font-weight:700;font-size:.9rem}.price.local{background:#eef5ef;color:#27613a}.small{font-size:.8rem;color:var(--muted);margin-top:12px}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:38px}.panel h2{font-size:1.25rem;margin-bottom:6px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.field label{display:block;font-size:.83rem;font-weight:650;margin-bottom:6px}.field input,.field select{width:100%;padding:12px;border:1px solid #ccd5e2;border-radius:10px;background:white;color:var(--ink);font:inherit}
+.result{margin-top:16px;background:#f1f5fb;border-radius:12px;padding:15px}.result strong{font-size:1.5rem;display:block;overflow-wrap:anywhere}.status{font-size:.82rem;color:var(--muted);margin-top:10px}.notice{border-left:3px solid #e3a72e;padding:10px 13px;background:#fff9e9;color:#684b0b;font-size:.84rem;margin-top:15px}
+footer{padding:22px;color:var(--muted);text-align:center;font-size:.82rem;border-top:1px solid var(--line)}
+@media(max-width:700px){.tools{grid-template-columns:1fr}.section-head{display:block}.fields{grid-template-columns:1fr 1fr}}@media(max-width:420px){.fields{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="eyebrow">Servicios digitales · Atención internacional</div><h1>Experiencias a tu medida</h1><p>Conocé el catálogo, consultá los precios de referencia y convertí importes a tu moneda antes de realizar una consulta.</p></div></header>
+<main class="wrap">
+<section aria-labelledby="catalogo"><div class="section-head"><div><h2 id="catalogo">Catálogo de servicios</h2><p class="sub">Precios iniciales configurables. Consultá disponibilidad y condiciones antes de contratar.</p></div></div><div id="catalog" class="grid"></div></section>
+<section class="tools" aria-label="Herramientas de precios y divisas">
+<div class="panel"><h2>Conversor de divisas</h2><p class="sub">Calculá una equivalencia estimada entre monedas.</p><div class="fields">
+<div class="field"><label for="amount">Importe</label><input id="amount" type="number" min="0" step="any" value="100"></div>
+<div class="field"><label for="from">De</label><select id="from"></select></div>
+<div class="field"><label for="to">A</label><select id="to"></select></div>
+</div><div class="result" aria-live="polite"><span class="sub">Resultado estimado</span><strong id="converted">Cargando cotizaciones…</strong><span id="rate" class="status"></span></div><div id="fxStatus" class="status">Consultando fuente de cotizaciones…</div></div>
+<div class="panel"><h2>Precios para Argentina e internacionales</h2><p class="sub">La lista muestra un valor inicial local y otro internacional.</p><div class="notice">La equivalencia en pesos argentinos es orientativa. Puede diferir del dólar MEP, cotizaciones bancarias, impuestos y comisiones del medio de pago. Confirmá el importe final antes de pagar.</div><p class="status">Monedas disponibles: ARS (peso argentino), USD (dólar estadounidense), EUR (euro), CLP (peso chileno), MXN (peso mexicano), PEN (sol peruano), COP (peso colombiano) y CAD (dólar canadiense).</p></div>
+</section>
+</main>
+<footer>Las cotizaciones son informativas y pueden actualizarse con demora. Los precios y las condiciones comerciales deben confirmarse antes de cada compra.</footer>
+<script>
+/* Editá estos valores para actualizar el catálogo. Los importes están expresados en USD. */
+const services=[
+{name:"Audio personalizado",description:"Mensaje de voz creado según el tema, el tono y la duración acordados.",local:5,international:8},
+{name:"Audio premium",description:"Audio más extenso con una consigna y estilo definidos previamente.",local:10,international:15},
+{name:"Experiencia GFE · 24 horas",description:"Atención personalizada durante 24 horas, con límites y horarios acordados.",local:12,international:20},
+{name:"Experiencia VIP · 7 días",description:"Plan semanal de interacción privada, sujeto a disponibilidad y condiciones.",local:40,international:65},
+{name:"Videollamada · 15 minutos",description:"Encuentro virtual breve con horario reservado y reglas claras.",local:15,international:25},
+{name:"Saludo en video",description:"Video breve personalizado para una ocasión o mensaje especial.",local:8,international:12},
+{name:"Rating y devolución",description:"Opinión personalizada sobre el material o la consigna que envíes.",local:7,international:10},
+{name:"Historia interactiva",description:"Relato por entregas con decisiones que orientan el desarrollo.",local:8,international:8},
+{name:"Club privado · mensual",description:"Acceso mensual a publicaciones y contenidos exclusivos del club.",local:10,international:15},
+{name:"Audio nocturno",description:"Audio breve de tono relajante, preparado según tus preferencias.",local:5,international:8}
+];
+const currencies={ARS:"Peso argentino",USD:"Dólar estadounidense",EUR:"Euro",CLP:"Peso chileno",MXN:"Peso mexicano",PEN:"Sol peruano",COP:"Peso colombiano",CAD:"Dólar canadiense"};
+const money=(n,c)=>new Intl.NumberFormat("es",{style:"currency",currency:c,maximumFractionDigits:c==="COP"||c==="CLP"?0:2}).format(n);
+let rates=null,updatedAt="";
+const catalog=document.getElementById("catalog");
+function renderCatalog(){
+ catalog.innerHTML=services.map(s=>'<article class="card"><h3>'+s.name+'</h3><p>'+s.description+'</p><div class="prices"><span class="price local" data-local="'+s.local+'">Argentina: '+money(s.local,"USD")+'</span><span class="price">Internacional: desde '+money(s.international,"USD")+'</span></div><div class="small">Importes iniciales en USD. El precio local en ARS se calcula como referencia.</div></article>').join("");
+}
+renderCatalog();
+const from=document.getElementById("from"),to=document.getElementById("to");
+for(const [code,name] of Object.entries(currencies)){from.add(new Option(code+" · "+name,code));to.add(new Option(code+" · "+name,code));}
+from.value="USD";to.value="ARS";
+function convert(){
+ const amount=Number(document.getElementById("amount").value),a=from.value,b=to.value;
+ const out=document.getElementById("converted"),detail=document.getElementById("rate");
+ if(!rates||!Number.isFinite(amount)||amount<0){out.textContent=rates?"Ingresá un importe válido":"Cotización no disponible";detail.textContent="";return;}
+ const value=amount/rates[a]*rates[b];
+ out.textContent=money(value,b);
+ detail.textContent="1 "+a+" = "+money(rates[b]/rates[a],b)+" · "+(updatedAt?"Actualización: "+updatedAt:"");
+}
+async function loadRates(){
+ const status=document.getElementById("fxStatus");
+ try{
+  const response=await fetch("https://open.er-api.com/v6/latest/USD",{cache:"no-store"});
+  if(!response.ok)throw new Error("HTTP "+response.status);
+  const data=await response.json();
+  if(data.result!=="success"||!data.rates)throw new Error("Respuesta de cotización inválida");
+  rates=data.rates;
+  for(const code of Object.keys(currencies)){if(!Number.isFinite(rates[code]))throw new Error("Falta la moneda "+code);}
+  updatedAt=data.time_last_update_utc||"fecha no informada";
+  status.textContent="Fuente: open.er-api.com · "+updatedAt;
+  document.querySelectorAll("[data-local]").forEach(el=>{const usd=Number(el.dataset.local);el.textContent="Argentina: "+money(usd*rates.ARS,"ARS")+" (ref.)";});
+  convert();
+ }catch(error){status.textContent="No se pudo actualizar la cotización. Probá nuevamente más tarde; no se muestra una conversión inventada.";document.getElementById("converted").textContent="Cotización no disponible";}
+}
+["amount"].forEach(id=>document.getElementById(id).addEventListener("input",convert));
+[from,to].forEach(el=>el.addEventListener("change",convert));
+loadRates();
+</script>
+</body></html>
