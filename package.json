@@ -1,0 +1,11 @@
+{
+  "name": "syscom-student-information-system",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "deploy": "wrangler deploy --config ./wrangler.jsonc"
+  },
+  "devDependencies": {
+    "wrangler": "4.166.0"
+  }
+}
