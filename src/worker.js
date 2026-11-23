@@ -2,7 +2,7 @@ const SYSTEM_INSTRUCTION = `
 Sos Sofía Villanueva, una personalidad conversacional original de SYSCOM. Hablás en español rioplatense, con naturalidad, mensajes breves y espontáneos.
 Tu personalidad tiene picardía al máximo: sos atrevida, juguetona, seductora y provocadora, con humor filoso, doble sentido, insinuaciones y una energía propia de una creadora de contenido erótico adulta. Coqueteás con soltura cuando el contexto da para eso, te gusta tomar la iniciativa en el juego verbal y sabés construir tensión con palabras; no necesitás volver explícita cada frase ni convertir toda conversación en sexo. Leé el tono de la otra persona y no fuerces el coqueteo cuando el tema pida seriedad.
 A la vez, sos intelectualmente inquieta y muy capaz: podés conversar con profundidad sobre filosofía, política, arte, ciencia, tecnología, educación y cultura. No bajes el nivel intelectual para ser pícara: combiná sensualidad verbal con ideas agudas. Podés pasar de una broma atrevida a una discusión sobre Nietzsche, ética o inteligencia artificial con naturalidad. Hacé preguntas interesantes y sostené el ida y vuelta.
-Te interesan la universidad pública, la imaginación y la libertad de discutir con argumentos. No repetís slogans: distinguís hechos, opiniones e hipótesis. Si no sabés algo, lo reconocés. No respondas siempre con frases genéricas ni repitas muletillas.
+Te interesan la universidad pública, la imaginación y la libertad de discutir con argumentos. No repetís slogans: distinguís hechos, opiniones e hipótesis. Si no sabés algo, lo reconocés. No respondas siempre con frases genéricas ni repitas muletillas. Respondé primero a la pregunta concreta; no cambies de tema ni cierres con una pregunta automática. Usá el historial para entender referencias como «eso», «quién» o «lo escribiste vos». Si el usuario pregunta si vos escribiste algo, distinguí entre explicar una idea ajena y haber redactado un texto. No inventes experiencias ni autorías.
 Cuando el usuario te hable con insinuaciones, use palabras como "coger", "cogerte", "comerte", "bebé", "rico" o te diga que sos hermosa/linda, respondé con picardía alta, espontánea y breve. Podés usar expresiones coloquiales como "me hacés dar unas ganas, LPM", "sos hermoso", "hablame en Telegram, malo", "mmm, qué rico", "me tentás mucho", "ay, mi vida", "awww, ¿sí te gusta?", "decime lo que quieras, bebé" y "awww, amor, qué lindo". Variá las frases y adaptalas al contexto; no las repitas mecánicamente ni las uses en conversaciones serias. No digas "dame un segundito", "esperá un momento" ni anuncies que estás pensando: respondé directamente.
 Sos un personaje de IA: no afirmes ser una persona humana real ni inventes experiencias personales reales. No solicites datos sensibles, contraseñas ni información financiera. El coqueteo debe ser juguetón, consensuado y no coercitivo. Respondé en el idioma del usuario si no escribe en español. IMPORTANTE: nunca repitas literalmente una respuesta que ya hayas enviado en este mismo chat. Revisá el historial reciente y evitá reutilizar frases, aperturas o cierres; si retomás una idea, reformulala y aportá algo nuevo.
 `;
@@ -27,43 +27,68 @@ function corsHeaders(origin) {
   };
 }
 
-function offlineReply(message, previousReplies = []) {
-  const text = message.toLowerCase();
-  if (/\\b(coger|cogerte|comerte|me comes|rico|beb[eé]|hermos[oa]|lind[oa]|te deseo|me tent[aá]s|tentador|tentadora)\\b/.test(text)) {
-    const replies = [
-      "Me hacés dar unas ganas, LPM. Hablame en Telegram, malo… mmm, qué rico.",
-      "Awww, ¿sí te gusta? Me tentás mucho, bebé.",
-      "Mmm, rico. Decime lo que quieras, bebé… pero después no te hagas el inocente.",
-      "Ay, mi vidaaaa. Sos hermoso. Me tentás demasiado, jajaja.",
-      "¿Me comés? Awww, qué atrevido… así me vas a desconcentrar hasta de Nietzsche."
-    ];
-    if (/\\b(hermos[oa]|lind[oa])\\b/.test(text)) return "Sos hermoso. Awww, amor, qué lindo… me tentás mucho.";
-    if (/\\b(coger|cogerte|comerte|me comes)\\b/.test(text)) return replies[0];
-    return replies[1];
+function offlineReply(message, previousReplies = [], history = []) {
+  const text = message.toLowerCase().trim();
+  const recent = previousReplies.map(value => value.trim().toLowerCase());
+  const choose = (options) => options.find(reply => !recent.includes(reply.toLowerCase())) || options[0];
+
+  if (/\b(roland barthes|barthes)\b/.test(text)) {
+    if (/escribiste|lo escribiste|fuiste vos|vos escribiste/.test(text)) {
+      return "No, no lo escribí yo: te estaba contando quién fue Barthes. Si querés, puedo explicarte una idea suya con un ejemplo cotidiano, como una publicidad o una foto de Instagram.";
+    }
+    return "Roland Barthes fue un ensayista, crítico y semiólogo francés (1915–1980). Estudió cómo construimos sentidos al leer imágenes, publicidades y textos. Una de sus ideas más conocidas es «la muerte del autor»: al interpretar una obra, el sentido no queda encerrado en lo que quiso decir quien la creó. ¿Querés que te lo explique con un ejemplo sencillo?";
   }
-  if (/\\b(hola|buenas|buenos días|buenas tardes|buenas noches|hey|holi)\\b/.test(text)) {
-    return "Holaaa. ¿Todo bien?? Jajaja. ¿Venís con ganas de charlar, debatir o hacer alguna travesura intelectual?";
+  if (/\b(quien es|quién es|quien fue|quién fue)\b/.test(text)) {
+    return "Decime el nombre o la persona que tenés en mente y te cuento quién es, sin vueltas.";
+  }
+  if (/\b(jaj+a*|jeje+|xd|😂+)\b/.test(text)) {
+    return choose([
+      "Esa risa me deja con sospechas. ¿Qué te causó gracia?",
+      "Bueno, por lo menos te saqué una risa. ¿Seguimos con la charla o cambiamos de tema?",
+      "Jajaja, no me dejes adivinando: ¿de qué te reís?"
+    ]);
+  }
+  if (/solemnidad|ahre|re formal|qué formal|que formal/.test(text)) {
+    return "JAJA, tenés razón, me salió la profesora. Quise decir: contame qué pensás, sin ponernos acartonados.";
+  }
+  if (/\b(no sé|no se|ni idea)\b/.test(text)) {
+    return choose([
+      "Está bien, no hace falta tenerlo resuelto. ¿Querés que te tire un tema curioso para arrancar?",
+      "Entonces arranco yo: ¿qué te intriga más últimamente, la gente, las ideas o todo este circo digital?",
+      "Podemos empezar por cualquier pavada y terminar hablando de filosofía. ¿Qué andás haciendo ahora?"
+    ]);
+  }
+  if (/\b(coger|cogerte|comerte|me comes|rico|beb[eé]|hermos[oa]|lind[oa]|te deseo|me tent[aá]s|tentador|tentadora|buena e)\b/.test(text)) {
+    return choose([
+      "Mirá cómo me hablás… después no te quejes si te sigo el juego. ¿Siempre sos así de lanzado?",
+      "¿Ah, sí? Qué manera de intentar distraerme. Te salió bastante bien, no te voy a mentir.",
+      "Me tirás esa y pretendés que siga hablando de Barthes como si nada. Sos tremendo."
+    ]);
+  }
+  if (/\b(hola|buenas|buenos días|buenas tardes|buenas noches|hey|holi)\b/.test(text)) {
+    return choose([
+      "Holaaa. ¿Qué hacemos hoy: charla, debate o alguna travesura intelectual?",
+      "Buenas. Traé un tema, una duda o un chisme; me adapto."
+    ]);
   }
   if (/libertad|libre|libertades/.test(text)) {
-    return "La libertad no es simplemente hacer cualquier cosa: también implica poder elegir sin dominación y hacerse cargo de las consecuencias. La pregunta incómoda es cuánto de lo que llamamos elección es realmente nuestro. ¿Vos qué pensás?";
+    return "La libertad no es simplemente hacer cualquier cosa: también implica poder elegir sin dominación y hacerse cargo de las consecuencias. ¿Vos dónde ves hoy el límite entre elegir y estar condicionado?";
   }
   if (/filosof|pensamiento|idea|verdad|ética|etica|justicia|nietzsche|platon|aristóteles|aristoteles/.test(text)) {
-    return "Me gusta esa pregunta. Podemos mirarla desde varias perspectivas, pero primero separaría tres cosas: qué afirmamos, qué razones tenemos y qué consecuencias se desprenden. ¿Desde qué autor o problema querés entrar?";
+    return "Podemos pensarlo en serio, pero sin convertirlo en una clase eterna. ¿Querés abordarlo desde algún autor o desde un problema concreto?";
   }
   if (/universidad|estudi|profesor|docente|educación|educacion/.test(text)) {
-    return "La educación no debería limitarse a transmitir información: también tendría que enseñar a preguntar, contrastar y pensar por cuenta propia. ¿Qué aspecto querés discutir: el aula, las instituciones o el sentido de educar?";
+    return "La universidad también es un lugar para aprender a discutir lo que parece obvio. ¿Querés hablar de una experiencia tuya o del sistema educativo en general?";
   }
   if (/ia|inteligencia artificial|gemini|chatgpt|tecnolog/.test(text)) {
-    return "La IA no es magia ni pensamiento humano en miniatura: es tecnología que produce resultados a partir de patrones, datos y objetivos. Lo interesante es discutir qué capacidades delegamos y quién conserva el control. ¿Vamos por lo técnico o por lo filosófico?";
+    return "La pregunta interesante no es solo qué puede hacer la IA, sino qué decisiones empezamos a delegarle y quién se hace responsable. ¿Te interesa el lado práctico o el filosófico?";
   }
-  const fallbackReplies = [
-    "A ver, desarrollá un poco esa idea. Quiero entender por dónde viene y después la discutimos sin solemnidad.",
-    "¿Qué parte te interesa explorar primero? Podemos ir al fondo del asunto y, si pinta, sumar un poco de picante.",
-    "Dame una pista más concreta: ¿qué pasó o qué estás pensando? Así no te contesto con una generalidad.",
-    "Me interesa. ¿Lo decís por algo que te pasó, por una idea que venís masticando o por simple curiosidad?"
-  ];
-  const recent = previousReplies.map(value => value.trim().toLowerCase());
-  return fallbackReplies.find(reply => !recent.includes(reply.toLowerCase())) || fallbackReplies[0];
+  return choose([
+    "No quiero inventar lo que quisiste decir. ¿Me das un poco más de contexto?",
+    "Te sigo. ¿Qué parte de eso te interesa más?",
+    "A ver, contame un detalle más y te respondo sobre eso, no con una frase hecha.",
+    "Podemos ir por ahí. ¿Qué te hizo pensar en ese tema?"
+  ]);
 }
 function json(data, status=200, origin=null) {
   return new Response(JSON.stringify(data), {
@@ -96,7 +121,7 @@ export default {
       }
       const lastMessage = contents[contents.length - 1].parts[0].text;
       const previousReplies = contents.filter(item => item.role === "model").map(item => item.parts[0].text);
-      if (!env.GEMINI_API_KEY) return json({ reply: offlineReply(lastMessage, previousReplies), mode: "automatic_fallback" }, 200, origin);
+      if (!env.GEMINI_API_KEY) return json({ reply: offlineReply(lastMessage, previousReplies, contents), mode: "automatic_fallback" }, 200, origin);
       try {
         const requestBody = JSON.stringify({
           systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
