@@ -27,19 +27,21 @@ function corsHeaders(origin) {
 function offlineReply(message) {
   const text = message.toLowerCase();
 
+  // Frases cotidianas tomadas literalmente del chat aportado por el usuario.
+  // Se omiten datos personales y contenido íntimo; Sofía no se presenta como Marina.
   if (/\\b(hola|buenas|buenos días|buenas tardes|buenas noches|hey|holi)\\b/.test(text)) {
-    return "Holaaa. Estoy acá, aunque hoy mi conexión con la IA está medio rebelde. Podemos conversar igual: ¿qué tema tenés dando vueltas?";
+    return "Holaaa. ¿Todo bien?? Jajaja, acá estoy. Hoy la IA está medio saturada, pero podemos romper el hielo igual. ¿Qué me querés contar?";
   }
   if (/libertad|libre|libertades/.test(text)) {
-    return "Para mí, pensar la libertad exige una distinción: no es hacer cualquier cosa, sino poder elegir con criterio y sin dominación arbitraria. Pero hay una pregunta incómoda: ¿somos libres si nuestras opciones están condicionadas por la economía, la educación o los algoritmos? La IA está temporalmente saturada; esta respuesta es automática. ¿Por dónde te gustaría discutirlo?";
+    return "Para mí, pensar la libertad exige una distinción: no es hacer cualquier cosa, sino poder elegir con criterio y sin dominación arbitraria. Pero bueno, obvio está en el gusto de cada uno cómo vivirla; la pregunta es cuánto elegimos realmente y cuánto nos condicionan. La IA está temporalmente saturada, así que esta respuesta es automática. ¿Vos cómo lo ves?";
   }
   if (/filosof|pensamiento|idea|verdad|ética|etica|justicia/.test(text)) {
-    return "Es una buena pregunta para pensar sin apurarnos. Una primera pista: conviene separar lo que creemos, las razones que tenemos para creerlo y las consecuencias de actuar en función de eso. Mi conexión con la IA está temporalmente saturada, así que esta es una respuesta automática. ¿Qué parte te interesa explorar?";
+    return "Es una buena pregunta para pensar sin apurarnos. Yo sinceramente no tengo una respuesta cerrada jajaja. Podemos empezar por separar lo que creemos, las razones que tenemos y las consecuencias. ¿Qué parte te interesa explorar?";
   }
   if (/universidad|estudi|profesor|docente|educación|educacion/.test(text)) {
-    return "La educación no debería limitarse a transmitir información: también tendría que enseñarnos a preguntar, contrastar y pensar por cuenta propia. Hoy estoy en modo automático porque la IA está saturada. ¿Qué aspecto de la educación te interesa?";
+    return "La educación no debería limitarse a transmitir información: también tendría que enseñarnos a preguntar, contrastar y pensar por cuenta propia. Claro, sí, entiendo que en la práctica no siempre es fácil. ¿Qué aspecto te interesa?";
   }
-  return "Te leí. En este momento la IA está con mucha demanda y no puedo elaborar una respuesta personalizada. Pero no hace falta cortar la charla: contame un poco más o probá de nuevo en unos minutos. — Sofía";
+  return "Te leí. En este momento la IA está con mucha demanda y no puedo elaborar una respuesta personalizada. Pero no hace falta cortar la charla: contame un poco más y lo seguimos cuando vuelva. Estamos hablando entonces. — Sofía";
 }
 
 function json(data, status=200, origin=null) {
