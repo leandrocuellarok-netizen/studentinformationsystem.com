@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Ruleta SYSCOM: un giro, un resultado.">
-<title>Ruleta de desafíos — SYSCOM</title>
+<title>Ruleta Hotsita — SYSCOM</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow+Condensed:wght@700;800;900&family=DM+Mono:wght@400;500&display=swap');
 :root{--pink:#ff075c;--paper:#f1f0ed;--black:#090909;--white:#fff}
@@ -28,26 +28,25 @@ button:disabled{opacity:.45;cursor:not-allowed}.secondary{background:#090909;col
 .result{min-height:130px;margin-top:18px;padding:17px;background:#090909;color:white;border-left:6px solid var(--pink)}
 .result small{font:10px 'DM Mono';color:#bbb;text-transform:uppercase}.result strong{display:block;color:var(--pink);font:900 29px/1.1 'Barlow Condensed';text-transform:uppercase;margin-top:8px}
 .note{font:11px/1.55 'DM Mono';color:#555;margin-top:14px}.claim{display:block;margin-top:14px;text-align:center}
-.packages{margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.pack{border:1px solid #111;padding:15px;background:#fff}.pack b{font:900 28px 'Barlow Condensed';display:block}.pack span{font:11px 'DM Mono';color:#555}
+.hotline{margin:38px 0 10px;text-align:center;background:#090909;color:#ff075c;padding:18px 10px;font:900 clamp(25px,5vw,48px)/.95 'Barlow Condensed';text-transform:uppercase;transform:rotate(-1deg);box-shadow:5px 5px 0 #ff075c}.packages{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.pack{border:2px solid #111;padding:17px;background:#fff;box-shadow:4px 4px 0 #ff075c}.pack b{font:900 32px 'Barlow Condensed';display:block}.pack strong{display:block;font:900 24px 'Barlow Condensed';margin:8px 0}.pack strong small{font:12px 'DM Mono'}.pack a{display:inline-block;margin:4px 0 10px;padding:9px;background:#ff075c;color:#090909;text-decoration:none;font:900 16px 'Barlow Condensed'}.pack span{display:block;font:10px/1.5 'DM Mono';color:#555}
 footer{background:#090909;color:#bbb;padding:24px 0;font:10px 'DM Mono';line-height:1.6}footer a{color:var(--pink)}
 @media(max-width:740px){.game{grid-template-columns:1fr}.wheel-wrap{width:min(88vw,420px)}.packages{grid-template-columns:1fr}.top{font-size:14px}}
 </style></head>
 <body><div class="wrap"><div class="top"><a href="/">SYSCOM</a><span>STUDENT INFORMATION SYSTEM</span></div>
-<header><div class="eyebrow">SYSCOM / CHALLENGE DEPARTMENT / 001</div><h1>RULETA <em>DE</em><br>DESAFÍOS</h1><p>UN GIRO. UN RESULTADO. CERO EXCUSAS. JUGÁ Y DESCUBRÍ QUÉ TE TOCA.</p></header>
+<header><div class="eyebrow">SYSCOM / CHALLENGE DEPARTMENT / 001</div><h1>RULETA <em>HOTSITA</em></h1><p>UN GIRO. UN REGALO. JUGÁ Y DESCUBRÍ QUÉ TE TOCA.</p></header>
 <main><div class="game"><div class="wheel-wrap"><div class="pointer"></div><div class="wheel" id="wheel"></div><div class="wheel-labels" id="labels"></div></div>
 <section class="panel"><div class="eyebrow">YOUR DAILY DOSE OF CHAOS</div><h2>¿TE ANIMÁS<br>A GIRAR?</h2><div class="balance"><span>CRÉDITOS DISPONIBLES</span><b id="credits">0</b></div><button id="spin">GIRAR RULETA ↗</button><div class="result" aria-live="polite"><small>Tu resultado</small><strong id="outcome">EL DESTINO ESTÁ ESPERANDO…</strong></div><a class="btn secondary claim" id="claim" href="https://t.me/soyuniversitaria" target="_blank" rel="noopener" hidden>RECLAMAR POR TELEGRAM ↗</a><p class="note" id="daily">UN GIRO GRATIS CADA 24 HORAS. LOS CRÉDITOS EXTRA ESTARÁN DISPONIBLES CUANDO SE ACTIVE EL SISTEMA DE PAGOS.</p></section></div>
-<section class="packages"><div class="pack"><b>+3 GIROS</b><span>PAQUETE MINI · PRÓXIMAMENTE</span></div><div class="pack"><b>+7 GIROS</b><span>PAQUETE MEDIO · PRÓXIMAMENTE</span></div><div class="pack"><b>+15 GIROS</b><span>PAQUETE FULL · PRÓXIMAMENTE</span></div></section>
-<p class="note">MODO DEMOSTRACIÓN: el límite diario se guarda en este navegador y puede reiniciarse borrando sus datos. No hay cobros ni acreditación real de créditos todavía. Los resultados con transferencias de dinero y premios pagos requieren revisión legal y un sistema de validación antes de habilitarse.</p>
-</main></div><footer><div class="wrap">SYSCOM · RULETA DE DESAFÍOS · <a href="https://t.me/soyuniversitaria" target="_blank" rel="noopener">TELEGRAM</a> · JUEGO DEMOSTRATIVO</div></footer>
+<p class="hotline">¿SERÁ QUE PUEDE TOCARTE UN ENCUENTRO CONMIGO?</p><section class="packages"><div class="pack"><b>+3 GIROS</b><strong>ARS 5.000 <small>O USD 4</small></strong><a href="https://link.mercadopago.com.ar/marinacespedes" target="_blank" rel="noopener">PAGAR CON MERCADO PAGO ↗</a><span>Enviá el comprobante por Telegram para acreditar tus créditos.</span></div><div class="pack"><b>+5 GIROS</b><strong>ARS 7.000</strong><a href="https://link.mercadopago.com.ar/marinacespedes" target="_blank" rel="noopener">PAGAR CON MERCADO PAGO ↗</a><span>Enviá el comprobante por Telegram para acreditar tus créditos.</span></div><div class="pack"><b>+12 GIROS</b><strong>ARS 10.000</strong><a href="https://link.mercadopago.com.ar/marinacespedes" target="_blank" rel="noopener">PAGAR CON MERCADO PAGO ↗</a><span>Enviá el comprobante por Telegram para acreditar tus créditos.</span></div></section>
+<p class="note">Los paquetes se acreditan manualmente al verificar el comprobante enviado por Telegram. El giro diario y el historial de créditos todavía funcionan en modo demostración en este navegador. Antes de habilitar ventas automatizadas y premios con valor económico, corresponde revisar las reglas legales y de Mercado Pago aplicables.</p>
+</main></div><footer><div class="wrap">SYSCOM · RULETA HOTSITA · <a href="https://t.me/soyuniversitaria" target="_blank" rel="noopener">TELEGRAM</a> · JUEGO DEMOSTRATIVO</div></footer>
 <script>
 const prizes=[
 "¡GANÉ LA FOTO TUYA QUE QUIERAS DARME!",
 "3 MINUTOS DE SEXTIN´GRATIS",
-"UN AUDIO DE 20 SEGUNDOS PARA UN AMIGO",
-"TE TENGO QUE PAGAR 10 USD (NADA, PERO BUENO)",
-"ME TOCA PASAR 20 USD (LPM)",
+"UN AUDIO DE 20 SEGUNDOS PARA UN AMIGO BIEN CACHONDI",
 "ME GANÉ QUE ME DIGAS BUENOS DÍAS POR 5 DÍAS CON UNA FOTO",
-"TE PAGO LA CENA"
+"ME GANÉ 2 FOTOS TUYAS MUY TRANQUI, PERO GANÉ ALGO",
+"UN AUDIO DE 30 SEGUNDOS PARA UN AMIGO BIEN SEXY"
 ];
 const wheel=document.getElementById('wheel'),spin=document.getElementById('spin'),out=document.getElementById('outcome'),claim=document.getElementById('claim'),credits=document.getElementById('credits'),daily=document.getElementById('daily');
 const key='syscom_roulette_last_spin_v1';let busy=false;
