@@ -141,7 +141,7 @@ footer h2 span{color:var(--pink)}
    <div class="sofia-manifesto">
     <div class="eyebrow">No soy precisamente tranquila.</div>
     <h2>Mucho deseo.<br>Más ideas.</h2>
-    <p>Soy curiosa, intensa, un poco ansiosa y bastante difícil de impresionar. Me gustan las conversaciones que se salen del guion, las preguntas incómodas, la cultura, las historias y la gente que piensa por cuenta propia.</p>
+    <p>Soy curiosa, intensa, un poco ansiosa y bastante difícil de impresionar. Hablo como pienso: en rioplatense, sin tanta ceremonia, con humor, alguna risa escrita y preguntas que aparecen de golpe. Me gusta el ida y vuelta, la picardía, que me sigan el juego y también que sepan conversar en serio.</p>
     <p><strong>La universidad pública, la imaginación y la libertad de discutir</strong> no se negocian. Lo demás… podemos conversarlo.</p>
    </div>
    <div class="sofia-chat">
@@ -281,12 +281,12 @@ if(sofiaForm){
   const user=document.createElement("div");user.className="sofia-message user";user.textContent=value;messages.appendChild(user);
   const reply=document.createElement("div");reply.className="sofia-message bot";
   const lower=value.toLowerCase();
-  let answer="Interesante. Pero no me tires una frase para salir del paso: desarrollá esa idea. Quiero saber qué hay detrás.";
-  if(/hola|buenas|hey/.test(lower))answer="Hola. Llegaste. Ahora hacé que valga la pena: contame algo que no le contarías a cualquiera.";
-  else if(/universidad|facultad|estudi/.test(lower))answer="La universidad pública es mucho más que un edificio: es la posibilidad concreta de que el conocimiento no sea un privilegio. ¿Qué cambiarías de la tuya?";
-  else if(/milei|pol[ií]tica|gobierno/.test(lower))answer="Prefiero discutir ideas y consecuencias antes que repetir consignas. ¿Qué medida o argumento querés poner bajo la lupa?";
-  else if(/amor|deseo|seduc|sexo|sensual/.test(lower))answer="El deseo también está hecho de palabras, imaginación y timing. No arruines el misterio apurándote: contame qué te despierta curiosidad.";
-  else if(/qui[eé]n sos|cómo sos|como sos/.test(lower))answer="Soy intensa, curiosa, orgullosa y bastante conversadora. Me aburren las respuestas automáticas. Y sí, tengo una opinión sobre casi todo.";
+  let answer="Mmm, pará… eso tiene algo. Jajaja. Pero no me dejes con la mitad de la historia: contame un poco más, ¿qué quisiste decir?";
+  if(/hola|buenas|hey/.test(lower))answer="Holaaa. ¿Cómo andás? Jajaja, apareciste. A ver, contame: ¿venís con una historia o tengo que sacártela de a poquito?";;
+  else if(/universidad|facultad|estudi/.test(lower))answer="Ay, la universidad pública me importa de verdad. No es solamente cursar: es abrir una puerta que no debería tener dueño. ¿Vos qué cambiarías de tu facultad?";;
+  else if(/milei|pol[ií]tica|gobierno/.test(lower))answer="Uff, de política podemos hablar largo. Pero no me alcanza con repetir slogans: quiero argumentos, consecuencias y un poquito de honestidad intelectual. ¿Qué tema te tiene pensando?";;
+  else if(/amor|deseo|seduc|sexo|sensual/.test(lower))answer="Jajajaja, ¿así que venimos por ese lado? Me gusta el coqueteo cuando hay imaginación y complicidad. No hace falta correr: decime qué te da curiosidad y vemos cómo sigue el juego.";;
+  else if(/qui[eé]n sos|cómo sos|como sos/.test(lower))answer="Soy curiosa, medio ansiosa, orgullosa y bastante charlatana cuando algo me interesa. Jajaja. Me gusta provocar un poquito, contar historias y que me discutan con inteligencia. ¿Te alcanza o querés seguir investigando?";;
   reply.textContent=answer;messages.appendChild(reply);messages.scrollTop=messages.scrollHeight;input.value="";
  });
 }
