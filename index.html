@@ -61,7 +61,7 @@ a{color:inherit}
 .result strong{display:block;color:var(--pink);font-family:'Barlow Condensed',Impact,sans-serif;font-size:36px;overflow-wrap:anywhere}
 .status{font-family:'DM Mono',monospace;font-size:10px;line-height:1.5;margin-top:9px}
 .notice{border-left:5px solid var(--pink);padding:10px 12px;background:#f4f1ed;font-size:12px;line-height:1.4;margin-top:15px}
-.currency-list{font-family:'DM Mono',monospace;font-size:10px;line-height:1.8;margin-top:12px}
+.world-clocks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:16px}.clock-item{border:1px solid #111;padding:10px;background:#f5f4f1;display:flex;justify-content:space-between;align-items:center;gap:8px}.clock-item:first-child{grid-column:1/-1;background:#111;color:#fff;border-color:#111}.clock-city{font:10px 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.04em}.clock-time{font:700 23px 'Barlow Condensed',Impact,sans-serif;white-space:nowrap;color:var(--pink)}.clock-item:first-child .clock-time{font-size:30px}@media(max-width:390px){.world-clocks{grid-template-columns:1fr}}
 footer{background:#090909;color:#fff;padding:34px 0 38px}
 .footer-top{display:flex;justify-content:space-between;gap:20px;align-items:start}
 footer h2{font-family:'Barlow Condensed',Impact,sans-serif;font-size:clamp(40px,7vw,76px);line-height:.85;text-transform:uppercase;margin:0}
@@ -121,9 +121,10 @@ footer h2 span{color:var(--pink)}
    <div class="result" aria-live="polite"><span class="sub">Estimated result</span><strong id="converted">Loading rates…</strong><span id="rate" class="status"></span></div>
    <div id="fxStatus" class="status">Fetching exchange rates…</div>
   </div>
-  <div class="panel"><h2>Prices & info</h2><p class="sub">Initial local and international reference prices.</p>
-   <div class="notice">ARS values are indicative only. They may differ from MEP, bank rates, taxes and payment fees. Confirm the final amount before purchase.</div>
-   <div class="currency-list">ARS · USD · EUR · CLP · MXN · PEN · COP · CAD</div>
+  <div class="panel"><h2>World clock</h2><p class="sub">Local time · live international schedule</p>
+    <div id="worldClocks" class="world-clocks" aria-live="off"></div>
+    <div class="notice">Argentina appears first. The other locations are ordered by their current local time. U.S. time is represented by New York.</div>
+   </div>
   </div>
  </section>
 </div>
@@ -170,6 +171,9 @@ for(const [code,name] of Object.entries(currencies)){from.add(new Option(code+" 
 from.value="USD";to.value="ARS";
 function convert(){const amount=Number(document.getElementById("amount").value),a=from.value,b=to.value,out=document.getElementById("converted"),detail=document.getElementById("rate");if(!rates||!Number.isFinite(amount)||amount<0){out.textContent=rates?"Enter a valid amount":"Rates unavailable";detail.textContent="";return;}out.textContent=money(amount/rates[a]*rates[b],b);detail.textContent="1 "+a+" = "+money(rates[b]/rates[a],b)+" · Updated: "+updatedAt;}
 async function loadRates(){const status=document.getElementById("fxStatus");try{const response=await fetch("https://open.er-api.com/v6/latest/USD",{cache:"no-store"});if(!response.ok)throw new Error("HTTP "+response.status);const data=await response.json();if(data.result!=="success"||!data.rates)throw new Error("Invalid rates");rates=data.rates;for(const code of Object.keys(currencies)){if(!Number.isFinite(rates[code]))throw new Error("Missing "+code);}updatedAt=data.time_last_update_utc||"date unavailable";status.textContent="Source: open.er-api.com · "+updatedAt;document.querySelectorAll("[data-local]").forEach(el=>{el.textContent="Argentina: "+money(Number(el.dataset.local)*rates.ARS,"ARS")+" (ref.)";});convert();}catch(error){status.textContent="Rates could not be updated. Try again later; no estimated conversion is shown.";document.getElementById("converted").textContent="Rates unavailable";}}
+const clockZones=[{name:"Argentina",zone:"America/Argentina/Buenos_Aires"},{name:"Chile · Santiago",zone:"America/Santiago"},{name:"México · Ciudad de México",zone:"America/Mexico_City"},{name:"Brasil · São Paulo",zone:"America/Sao_Paulo"},{name:"España · Madrid",zone:"Europe/Madrid"},{name:"Francia · París",zone:"Europe/Paris"},{name:"EE.UU. · Nueva York",zone:"America/New_York"},{name:"Italia · Roma",zone:"Europe/Rome"},{name:"Alemania · Berlín",zone:"Europe/Berlin"}];
+function updateWorldClocks(){const now=new Date();const clocks=clockZones.map((city,index)=>{const parts=new Intl.DateTimeFormat("en-GB",{timeZone:city.zone,hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(now);const hour=Number(parts.find(p=>p.type==="hour").value),minute=Number(parts.find(p=>p.type==="minute").value);return {...city,index,minutes:hour*60+minute,time:new Intl.DateTimeFormat("es-AR",{timeZone:city.zone,hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(now)};});const argentina=clocks[0];const others=clocks.slice(1).sort((a,b)=>a.minutes-b.minutes||a.index-b.index);document.getElementById("worldClocks").innerHTML=[argentina,...others].map(c=>'<div class="clock-item"><span class="clock-city">'+c.name+'</span><strong class="clock-time">'+c.time+'</strong></div>').join("");}
+updateWorldClocks();setInterval(updateWorldClocks,1000);
 document.getElementById("amount").addEventListener("input",convert);[from,to].forEach(el=>el.addEventListener("change",convert));loadRates();
 </script>
 </body>
