@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Ruleta SYSCOM: un giro, un resultado.">
+<title>Ruleta de desafíos — SYSCOM</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow+Condensed:wght@700;800;900&family=DM+Mono:wght@400;500&display=swap');
+:root{--pink:#ff075c;--paper:#f1f0ed;--black:#090909;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--black);font-family:Arial,sans-serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:5;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E")}
+.wrap{width:min(1050px,calc(100% - 32px));margin:auto}.top{height:76px;display:flex;justify-content:space-between;align-items:center;font:18px 'Archivo Black';letter-spacing:.06em}.top a{color:inherit;text-decoration:none}
+header{background:#090909;color:white;padding:32px 5%;position:relative;overflow:hidden;border:2px solid #111;box-shadow:8px 8px 0 var(--pink)}
+.eyebrow{font:11px 'DM Mono';letter-spacing:.16em;color:#bbb;text-transform:uppercase}
+h1{font:900 clamp(54px,10vw,112px)/.83 'Barlow Condensed';text-transform:uppercase;margin:18px 0;color:white;max-width:700px}h1 em{color:var(--pink);font-style:normal}
+header p{font:13px 'DM Mono';color:#ddd;max-width:480px;line-height:1.6}
+main{padding:44px 0 70px}.game{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:center}
+.wheel-wrap{position:relative;width:min(100%,470px);margin:auto;aspect-ratio:1}
+.wheel{width:100%;height:100%;border-radius:50%;border:9px solid #090909;box-shadow:8px 8px 0 var(--pink);background:conic-gradient(#ff075c 0deg 51.42deg,#fff 51.42deg 102.84deg,#ff075c 102.84deg 154.26deg,#fff 154.26deg 205.68deg,#ff075c 205.68deg 257.1deg,#fff 257.1deg 308.52deg,#ff075c 308.52deg 360deg);transition:transform 4.2s cubic-bezier(.12,.72,.12,1);position:relative;overflow:hidden}
+.wheel:after{content:"SYSCOM";position:absolute;inset:40%;border-radius:50%;background:#090909;border:5px solid white;display:grid;place-items:center;color:var(--pink);font:12px 'Archivo Black'}
+.pointer{position:absolute;z-index:2;top:-12px;left:calc(50% - 17px);width:0;height:0;border-left:17px solid transparent;border-right:17px solid transparent;border-top:36px solid #090909;filter:drop-shadow(2px 2px 0 var(--pink))}
+.wheel-labels{position:absolute;inset:0;pointer-events:none}.wheel-labels span{position:absolute;left:50%;top:50%;width:42%;text-align:center;font:900 clamp(9px,1.2vw,12px) 'Barlow Condensed';text-transform:uppercase;color:#090909;transform-origin:left center}
+.panel{background:#fff;border:2px solid #090909;padding:22px;box-shadow:6px 6px 0 #090909}
+.panel h2{font:900 38px/.95 'Barlow Condensed';text-transform:uppercase;margin:0 0 12px}
+.balance{font:12px 'DM Mono';padding:10px;background:#090909;color:white;display:flex;justify-content:space-between;margin:15px 0}.balance b{color:var(--pink)}
+button,.btn{border:0;cursor:pointer;text-decoration:none;display:inline-block;background:var(--pink);color:#090909;padding:13px 18px;font:900 25px 'Barlow Condensed';text-transform:uppercase;box-shadow:4px 4px 0 #090909}
+button:disabled{opacity:.45;cursor:not-allowed}.secondary{background:#090909;color:#fff;font:700 17px 'Barlow Condensed';box-shadow:4px 4px 0 var(--pink)}
+.result{min-height:130px;margin-top:18px;padding:17px;background:#090909;color:white;border-left:6px solid var(--pink)}
+.result small{font:10px 'DM Mono';color:#bbb;text-transform:uppercase}.result strong{display:block;color:var(--pink);font:900 29px/1.1 'Barlow Condensed';text-transform:uppercase;margin-top:8px}
+.note{font:11px/1.55 'DM Mono';color:#555;margin-top:14px}.claim{display:block;margin-top:14px;text-align:center}
+.packages{margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.pack{border:1px solid #111;padding:15px;background:#fff}.pack b{font:900 28px 'Barlow Condensed';display:block}.pack span{font:11px 'DM Mono';color:#555}
+footer{background:#090909;color:#bbb;padding:24px 0;font:10px 'DM Mono';line-height:1.6}footer a{color:var(--pink)}
+@media(max-width:740px){.game{grid-template-columns:1fr}.wheel-wrap{width:min(88vw,420px)}.packages{grid-template-columns:1fr}.top{font-size:14px}}
+</style></head>
+<body><div class="wrap"><div class="top"><a href="/">SYSCOM</a><span>STUDENT INFORMATION SYSTEM</span></div>
+<header><div class="eyebrow">SYSCOM / CHALLENGE DEPARTMENT / 001</div><h1>RULETA <em>DE</em><br>DESAFÍOS</h1><p>UN GIRO. UN RESULTADO. CERO EXCUSAS. JUGÁ Y DESCUBRÍ QUÉ TE TOCA.</p></header>
+<main><div class="game"><div class="wheel-wrap"><div class="pointer"></div><div class="wheel" id="wheel"></div><div class="wheel-labels" id="labels"></div></div>
+<section class="panel"><div class="eyebrow">YOUR DAILY DOSE OF CHAOS</div><h2>¿TE ANIMÁS<br>A GIRAR?</h2><div class="balance"><span>CRÉDITOS DISPONIBLES</span><b id="credits">0</b></div><button id="spin">GIRAR RULETA ↗</button><div class="result" aria-live="polite"><small>Tu resultado</small><strong id="outcome">EL DESTINO ESTÁ ESPERANDO…</strong></div><a class="btn secondary claim" id="claim" href="https://t.me/soyuniversitaria" target="_blank" rel="noopener" hidden>RECLAMAR POR TELEGRAM ↗</a><p class="note" id="daily">UN GIRO GRATIS CADA 24 HORAS. LOS CRÉDITOS EXTRA ESTARÁN DISPONIBLES CUANDO SE ACTIVE EL SISTEMA DE PAGOS.</p></section></div>
+<section class="packages"><div class="pack"><b>+3 GIROS</b><span>PAQUETE MINI · PRÓXIMAMENTE</span></div><div class="pack"><b>+7 GIROS</b><span>PAQUETE MEDIO · PRÓXIMAMENTE</span></div><div class="pack"><b>+15 GIROS</b><span>PAQUETE FULL · PRÓXIMAMENTE</span></div></section>
+<p class="note">MODO DEMOSTRACIÓN: el límite diario se guarda en este navegador y puede reiniciarse borrando sus datos. No hay cobros ni acreditación real de créditos todavía. Los resultados con transferencias de dinero y premios pagos requieren revisión legal y un sistema de validación antes de habilitarse.</p>
+</main></div><footer><div class="wrap">SYSCOM · RULETA DE DESAFÍOS · <a href="https://t.me/soyuniversitaria" target="_blank" rel="noopener">TELEGRAM</a> · JUEGO DEMOSTRATIVO</div></footer>
+<script>
+const prizes=[
+"¡GANÉ LA FOTO TUYA QUE QUIERAS DARME!",
+"3 MINUTOS DE SEXTIN´GRATIS",
+"UN AUDIO DE 20 SEGUNDOS PARA UN AMIGO",
+"TE TENGO QUE PAGAR 10 USD (NADA, PERO BUENO)",
+"ME TOCA PASAR 20 USD (LPM)",
+"ME GANÉ QUE ME DIGAS BUENOS DÍAS POR 5 DÍAS CON UNA FOTO",
+"TE PAGO LA CENA"
+];
+const wheel=document.getElementById('wheel'),spin=document.getElementById('spin'),out=document.getElementById('outcome'),claim=document.getElementById('claim'),credits=document.getElementById('credits'),daily=document.getElementById('daily');
+const key='syscom_roulette_last_spin_v1';let busy=false;
+document.getElementById('labels').innerHTML=prizes.map((p,i)=>{const angle=i*360/prizes.length+18;return '<span style="transform:rotate('+angle+'deg) translateY(-'+Math.min(150,window.innerWidth*.15)+'px)">'+(i+1)+'</span>'}).join('');
+function canSpin(){const last=Number(localStorage.getItem(key)||0);return Date.now()-last>=86400000}
+function update(){const allowed=canSpin();credits.textContent=allowed?'1':'0';spin.disabled=!allowed||busy;daily.textContent=allowed?'TENÉS TU GIRO GRATIS DE HOY. UN GIRO CADA 24 HORAS.':'YA USASTE TU GIRO DE HOY. VOLVÉ DESPUÉS DE 24 HORAS.'}
+spin.addEventListener('click',()=>{if(busy||!canSpin())return;busy=true;spin.disabled=true;claim.hidden=true;out.textContent='GIRANDO…';const index=Math.floor(Math.random()*prizes.length);const segment=360/prizes.length;const rotation=360*6+(360-index*segment-segment/2);wheel.style.transform='rotate('+rotation+'deg)';setTimeout(()=>{localStorage.setItem(key,String(Date.now()));out.textContent=prizes[index];claim.hidden=false;busy=false;update()},4300)});
+update();
+</script></body></html>
