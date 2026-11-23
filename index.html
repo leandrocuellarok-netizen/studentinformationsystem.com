@@ -159,6 +159,8 @@ footer h2 span{color:var(--pink)}
 <script>
 /* Edit these USD values to update the catalog. */
 const services=[
+{name:"Sitios web y landing pages con una Chica Universitarixxx",description:"Creamos landing pages profesionales para presentar tu negocio, promocionar tus servicios o impulsar tu marca personal. Diseños modernos, adaptados a celulares y pensados para convertir visitas en consultas y clientes. Incluye imágenes mías antiestrés.",kind:"website"},
+{name:"Virtual Sexy Assistant · Community Manager",description:"Potenciá tu negocio, servicio o marca personal con contenido profesional. Creamos imágenes, videos y copys personalizados para destacar tu propuesta y atraer clientes. Incluye imágenes mías antiestrés.",kind:"community"},
 {name:"Audio personalizado",description:"Mensaje de voz creado según el tema, el tono y la duración acordados.",local:5,international:8},
 {name:"Audio premium",description:"Audio más extenso con una consigna y estilo definidos previamente.",local:10,international:15},
 {name:"Experiencia GFE · 24 horas",description:"Atención personalizada durante 24 horas, con límites y horarios acordados.",local:12,international:20},
@@ -173,7 +175,7 @@ const services=[
 const currencies={ARS:"Peso argentino",USD:"Dólar estadounidense",EUR:"Euro",CLP:"Peso chileno",MXN:"Peso mexicano",PEN:"Sol peruano",COP:"Peso colombiano",CAD:"Dólar canadiense"};
 const money=(n,c)=>new Intl.NumberFormat("es",{style:"currency",currency:c,maximumFractionDigits:c==="COP"||c==="CLP"?0:2}).format(n);
 let rates=null,updatedAt="";
-document.getElementById("catalog").innerHTML=services.map(s=>'<article class="card"><h3>'+s.name+'</h3><p>'+s.description+'</p><div class="prices"><span class="price local" data-local="'+s.local+'">Argentina: '+money(s.local,"USD")+'</span><span class="price int">International: from '+money(s.international,"USD")+'</span></div><div class="small">Initial reference price · USD</div></article>').join("");
+document.getElementById("catalog").innerHTML=services.map(s=>{if(s.kind==="website")return '<article class="card"><h3>'+s.name+'</h3><p>'+s.description+'</p><div class="prices"><span class="price">First month: USD 29</span><span class="price int">Months 2–12: USD 17 / month</span></div><div class="small">Domain and hosting included · 12-month plan</div></article>';if(s.kind==="community")return '<article class="card"><h3>'+s.name+'</h3><p>'+s.description+'</p><div class="prices"><span class="price">Plans from USD 58 / month</span></div><div class="small">Customized according to each project</div></article>';return '<article class="card"><h3>'+s.name+'</h3><p>'+s.description+'</p><div class="prices"><span class="price local" data-local="'+s.local+'">Argentina: '+money(s.local,"USD")+'</span><span class="price int">International: from '+money(s.international,"USD")+'</span></div><div class="small">Initial reference price · USD</div></article>';}).join("");
 const from=document.getElementById("from"),to=document.getElementById("to");
 for(const [code,name] of Object.entries(currencies)){from.add(new Option(code+" · "+name,code));to.add(new Option(code+" · "+name,code));}
 from.value="USD";to.value="ARS";
